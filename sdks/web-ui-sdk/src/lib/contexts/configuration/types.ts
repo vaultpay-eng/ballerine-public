@@ -31,6 +31,7 @@ export const Steps = {
   Final: 'final',
   Loading: 'loading',
   Resubmission: 'resubmission',
+  PersonalInfo: 'personal-info',
   Decline: 'decline',
   Error: 'error',
 } as const;

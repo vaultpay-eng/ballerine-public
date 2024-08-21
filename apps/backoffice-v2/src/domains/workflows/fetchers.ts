@@ -23,6 +23,7 @@ export const fetchWorkflows = async (params: {
 }) => {
   const queryParams = qs.stringify(params, { encode: false });
 
+  //TODO Ntambwa: understand this for http://localhost:3000/api/v1/external/workflows/run
   const [workflows, error] = await apiClient({
     endpoint: `workflows?${queryParams}`,
     method: Method.GET,

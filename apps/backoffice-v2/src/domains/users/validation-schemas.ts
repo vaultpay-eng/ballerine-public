@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { ObjectWithIdSchema } from '../../lib/zod/utils/object-with-id/object-with-id';
 
+// Todo: Ntambwa: understand this for individual by id schema
 export const UsersListSchema = z
   .array(
     ObjectWithIdSchema.extend({

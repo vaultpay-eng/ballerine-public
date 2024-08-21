@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { ObjectWithIdSchema } from '../../lib/zod/utils/object-with-id/object-with-id';
 import { State, States } from '../../common/enums';
 
+// Todo: Ntambwa: understand this for individual by id schema
 export const IndividualByIdSchema = ObjectWithIdSchema.extend({
   avatarUrl: z.string().nullable().default(''),
   createdAt: z.string().default(''),

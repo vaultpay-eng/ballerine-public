@@ -22,6 +22,7 @@
     "test:e2e": "jest --testRegex '.*\\.e2e\\.test\\.ts$'",
     "test:watch": "jest --verbose --watch",
     "seed": "tsx scripts/seed.ts",
+    "custom-seed": "tsx scripts/custom-seed.ts",
     "db:migrate-dev": "prisma migrate dev",
     "db:migrate-up": "prisma migrate deploy",
     "db:clean": "if [ \"$DB_USER\" != \"root\" ]; then tsx scripts/clean.ts; else echo 'Cannot run reset as root'; fi",

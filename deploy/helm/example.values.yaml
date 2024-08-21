@@ -1,3 +1,4 @@
+#TODO Ntambwa: Understanding deploy here
 ## Postgres params
 postgresql:
   image:

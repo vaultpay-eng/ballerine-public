@@ -68,6 +68,8 @@ function generateAvatarImageUri(imageTemplate: string, countOfBusiness: number, 
   return faker.image.people(1000, 2000, true);
 }
 
+//TODO Ntambwa: understand this file
+
 async function createCustomer(
   client: PrismaClient,
   id: string,
@@ -117,7 +119,7 @@ const DEFAULT_TOKENS = {
 async function seed() {
   console.info('Seeding database...');
   const client = new PrismaClient();
-  await generateDynamicDefinitionForE2eTest(client);
+  // await generateDynamicDefinitionForE2eTest(client);
   const customer = (await createCustomer(
     client,
     '1',
@@ -127,34 +129,13 @@ async function seed() {
     `webhook-shared-secret-${env.API_KEY}`,
   )) as Customer;
 
-  const customer2 = (await createCustomer(
-    client,
-    '2',
-    `${env.API_KEY}2`,
-    'https://blrn-cdn-prod.s3.eu-central-1.amazonaws.com/images/ballerine_logo.svg',
-    '',
-    `webhook-shared-secret-${env.API_KEY}2`,
-  )) as Customer;
   const project1 = (await createProject(client, customer, '1')) as Project;
 
   const ids1 = await generateTransactions(client, {
     projectId: project1.id,
   });
-  const ids2 = await generateTransactions(client, {
-    projectId: project1.id,
-  });
 
-  const project2 = await createProject(client, customer2, '2');
-
-  const [adminUser, ...agentUsers] = await createUsers({ project1, project2 }, client);
-
-  await generateFakeAlertDefinitions(client, {
-    project: project1,
-    counterparyIds: [...ids1, ...ids2]
-      .map(({ counterpartyOriginatorId }) => counterpartyOriginatorId)
-      .filter(Boolean) as string[],
-    agentUserIds: agentUsers.map(({ id }) => id),
-  });
+  const [adminUser, ...agentUsers] = await createUsers({ project1 }, client);
 
   const kycManualMachineId = 'MANUAL_REVIEW_0002zpeid7bq9aaa';
   const kybManualMachineId = 'MANUAL_REVIEW_0002zpeid7bq9bbb';
@@ -169,156 +150,6 @@ async function seed() {
   // KYB Flows
   const onboardingMachineId = 'kyb-onboarding';
   const riskScoreMachineId = 'kyb-risk-score';
-
-  const user = await client.endUser.create({
-    data: {
-      id: '43a0a298-0d02-4a2e-a8cc-73c06b465310',
-      firstName: 'Nadia',
-      lastName: 'Comaneci',
-      email: 'nadia@ballerine.com',
-      correlationId: '1',
-      dateOfBirth: '2000-11-04T12:45:51.695Z',
-      projectId: project1.id,
-    },
-  });
-
-  const user2 = await client.endUser.create({
-    data: {
-      id: '43a0a298-0d02-4a2e-a8cc-73c06b465311',
-      firstName: 'Nadin',
-      lastName: 'Mami',
-      email: 'ndain@ballerine.com',
-      correlationId: '2',
-      dateOfBirth: '2000-11-04T12:45:51.695Z',
-      projectId: project1.id,
-    },
-  });
-
-  const createMockBusinessContextData = async (businessId: string, countOfBusiness: number) => {
-    const correlationId = faker.datatype.uuid();
-    const imageUri1 = generateAvatarImageUri(
-      `set_${countOfBusiness}_doc_front.png`,
-      countOfBusiness,
-    );
-    const imageUri2 = generateAvatarImageUri(
-      `set_${countOfBusiness}_doc_face.png`,
-      countOfBusiness,
-    );
-    const imageUri3 = generateAvatarImageUri(
-      `set_${countOfBusiness}_selfie.png`,
-      countOfBusiness,
-      true,
-    );
-
-    return {
-      entity: {
-        type: 'business',
-        data: {
-          companyName: faker.company.name(),
-          registrationNumber: faker.finance.account(9),
-          legalForm: faker.company.bs(),
-          countryOfIncorporation: faker.address.country(),
-          // @ts-expect-error - business type expects a date and not a string.
-          dateOfIncorporation: faker.date.past(20).toISOString(),
-          address: faker.address.streetAddress(),
-          phoneNumber: faker.phone.number(),
-          email: faker.internet.email(),
-          website: faker.internet.url(),
-          industry: faker.company.catchPhrase(),
-          taxIdentificationNumber: faker.finance.account(12),
-          vatNumber: faker.finance.account(9),
-          numberOfEmployees: faker.datatype.number(1000),
-          businessPurpose: faker.company.catchPhraseDescriptor(),
-          approvalState: 'NEW',
-          additionalInfo: { customParam: 'customValue' },
-        } satisfies Partial<Business>,
-        ballerineEntityId: businessId,
-        id: correlationId,
-      },
-      documents: [
-        {
-          id: faker.datatype.uuid(),
-          category: 'proof_of_employment',
-          type: 'payslip',
-          issuer: {
-            type: 'government',
-            name: 'Government',
-            country: 'GH',
-            city: faker.address.city(),
-            additionalInfo: { customParam: 'customValue' },
-          },
-          issuingVersion: 1,
-
-          version: 1,
-          pages: [
-            {
-              provider: 'http',
-              uri: imageUri1,
-              type: 'jpg',
-              data: '',
-              ballerineFileId: await persistImageFile(client, imageUri1, project1.id),
-              metadata: {
-                side: 'front',
-                pageNumber: '1',
-              },
-            },
-            {
-              provider: 'http',
-              uri: imageUri2,
-              type: 'jpg',
-              data: '',
-              ballerineFileId: await persistImageFile(client, imageUri2, project1.id),
-              metadata: {
-                side: 'back',
-                pageNumber: '1',
-              },
-            },
-          ],
-          properties: {
-            nationalIdNumber: generateUserNationalId(),
-            docNumber: faker.random.alphaNumeric(9),
-            employeeName: faker.name.fullName(),
-            position: faker.name.jobTitle(),
-            salaryAmount: faker.finance.amount(1000, 10000),
-            issuingDate: faker.date.past(10).toISOString().split('T')[0],
-          },
-        },
-        {
-          id: faker.datatype.uuid(),
-          category: 'proof_of_address',
-          type: 'mortgage_statement',
-          issuer: {
-            type: 'government',
-            name: 'Government',
-            country: 'GH',
-            city: faker.address.city(),
-            additionalInfo: { customParam: 'customValue' },
-          },
-          issuingVersion: 1,
-
-          version: 1,
-          pages: [
-            {
-              provider: 'http',
-              uri: imageUri3,
-              type: 'image/png',
-              ballerineFileId: await persistImageFile(client, imageUri3, project1.id),
-              data: '',
-              metadata: {},
-            },
-          ],
-          properties: {
-            nationalIdNumber: generateUserNationalId(),
-            docNumber: faker.random.alphaNumeric(9),
-            employeeName: faker.name.fullName(),
-            position: faker.name.jobTitle(),
-            salaryAmount: faker.finance.amount(1000, 10000),
-            issuingDate: faker.date.past(10).toISOString().split('T')[0],
-          },
-        },
-      ],
-    };
-  };
 
   async function createMockEndUserContextData(endUserId: string, countOfIndividual: number) {
     const correlationId = faker.datatype.uuid();
@@ -340,8 +171,8 @@ async function seed() {
       entity: {
         type: 'individual',
         data: {
-          firstName: faker.name.firstName(),
-          lastName: faker.name.lastName(),
+          firstName: 'Aime', //faker.name.firstName(),
+          lastName: 'Tshibangu', //faker.name.lastName(),
           email: faker.internet.email(),
           approvalState: 'NEW',
           phone: faker.phone.number(),
@@ -462,31 +293,6 @@ async function seed() {
     });
   }
 
-  // Risk score improvement
-  await client.workflowDefinition.create({
-    data: {
-      id: 'risk-score-improvement-dev', // should be auto generated normally
-      name: 'risk-score-improvement',
-      version: 1,
-      definitionType: 'statechart-json',
-      config: {
-        completedWhenTasksResolved: true,
-        workflowLevelResolution: false,
-        allowMultipleActiveWorkflows: true,
-      },
-      contextSchema: {
-        type: 'json-schema',
-        schema: defaultContextSchema,
-      },
-      definition: {
-        id: 'risk-score-improvement',
-        initial: DEFAULT_INITIAL_STATE,
-        states: generateBaseTaskLevelStates(),
-      },
-      projectId: project1.id,
-    },
-  });
-
   const baseReviewDefinition = (stateDefinition: InputJsonValue) =>
     ({
       name: DEFAULT_INITIAL_STATE,
@@ -514,18 +320,6 @@ async function seed() {
         workflowLevelResolution: false,
       },
       version: 2,
-      projectId: project1.id,
-    },
-  });
-
-  // KYB Manual Review (workflowLevelResolution true)
-  await client.workflowDefinition.create({
-    data: {
-      ...baseReviewDefinition(generateBaseCaseLevelStatesAutoTransitionOnRevision()),
-      id: kybManualMachineId,
-      config: {
-        workflowLevelResolution: true,
-      },
       projectId: project1.id,
     },
   });
@@ -659,123 +453,6 @@ async function seed() {
     },
   });
 
-  // KYB
-  await client.workflowDefinition.create({
-    data: {
-      id: onboardingMachineKybId, // should be auto generated normally
-      reviewMachineId: kybManualMachineId,
-      name: 'kyb',
-      version: 1,
-      definitionType: 'statechart-json',
-      definition: {
-        id: 'kyb',
-        predictableActionArguments: true,
-        initial: 'welcome',
-
-        context: {
-          documents: [],
-        },
-
-        states: {
-          welcome: {
-            on: {
-              USER_NEXT_STEP: 'document_selection',
-            },
-          },
-          document_selection: {
-            on: {
-              USER_PREV_STEP: 'welcome',
-              USER_NEXT_STEP: 'document_photo',
-            },
-          },
-          document_photo: {
-            on: {
-              USER_PREV_STEP: 'document_selection',
-              USER_NEXT_STEP: 'document_review',
-            },
-          },
-          document_review: {
-            on: {
-              USER_PREV_STEP: 'document_photo',
-              USER_NEXT_STEP: 'certificate_of_incorporation',
-            },
-          },
-          certificate_of_incorporation: {
-            on: {
-              USER_PREV_STEP: 'document_review',
-              USER_NEXT_STEP: 'certificate_of_incorporation_review',
-            },
-          },
-          certificate_of_incorporation_review: {
-            on: {
-              USER_PREV_STEP: 'certificate_of_incorporation',
-              USER_NEXT_STEP: 'selfie',
-            },
-          },
-          selfie: {
-            on: {
-              USER_PREV_STEP: 'certificate_of_incorporation_review',
-              USER_NEXT_STEP: 'selfie_review',
-            },
-          },
-          selfie_review: {
-            on: {
-              USER_PREV_STEP: 'selfie',
-              USER_NEXT_STEP: 'final',
-            },
-          },
-          final: {
-            type: 'final',
-          },
-        },
-      },
-      persistStates: [
-        {
-          state: 'document_review',
-          persistence: 'BACKEND',
-        },
-        {
-          state: 'document_selection',
-          persistence: 'BACKEND',
-        },
-        {
-          state: 'final',
-          persistence: 'BACKEND',
-        },
-      ],
-      submitStates: [
-        {
-          state: 'document_photo',
-        },
-      ],
-      projectId: project1.id,
-    },
-  });
-
-  await createFilter(
-    'Onboarding - Businesses with enriched data',
-    'businesses',
-    {
-      select: {
-        id: true,
-        status: true,
-        assigneeId: true,
-        createdAt: true,
-        context: true,
-        state: true,
-        tags: true,
-        ...baseFilterDefinitionSelect,
-        ...baseFilterBusinessSelect,
-        ...baseFilterAssigneeSelect,
-      },
-      where: {
-        workflowDefinitionId: { in: ['dynamic_external_request_example'] },
-        businessId: { not: null },
-      },
-    },
-    project1.id,
-  );
-
   await createFilter(
     'Onboarding - Individuals',
     'individuals',
@@ -824,30 +501,6 @@ async function seed() {
     project1.id,
   );
 
-  // KYB Onboarding
-  await client.workflowDefinition.create({
-    data: {
-      id: onboardingMachineId,
-      name: 'kyb_onboarding',
-      version: 1,
-      definitionType: 'statechart-json',
-      config: {
-        workflowLevelResolution: true,
-        completedWhenTasksResolved: false,
-        allowMultipleActiveWorkflows: false,
-      },
-      definition: {
-        id: 'kyb_onboarding',
-        predictableActionArguments: true,
-        initial: DEFAULT_INITIAL_STATE,
-        context: {
-          documents: [],
-        },
-        states: generateBaseCaseLevelStatesAutoTransitionOnRevision(),
-      },
-    },
-  });
-
   // KYB Risk Score Improvement
   await client.workflowDefinition.create({
     data: {
@@ -872,79 +525,6 @@ async function seed() {
     },
   });
 
-  await createFilter(
-    'Risk Score Improvement - Individuals',
-    'individuals',
-    {
-      select: {
-        id: true,
-        status: true,
-        assigneeId: true,
-        createdAt: true,
-        context: true,
-        state: true,
-        tags: true,
-        ...baseFilterDefinitionSelect,
-        ...baseFilterEndUserSelect,
-        ...baseFilterAssigneeSelect,
-      },
-      where: {
-        workflowDefinitionId: { in: [riskScoreMachineKybId] },
-        endUserId: { not: null },
-      },
-    },
-    project1.id,
-  );
-
-  await createFilter(
-    'Risk Score Improvement - Businesses',
-    'businesses',
-    {
-      select: {
-        id: true,
-        status: true,
-        assigneeId: true,
-        createdAt: true,
-        context: true,
-        state: true,
-        tags: true,
-        ...baseFilterDefinitionSelect,
-        ...baseFilterBusinessSelect,
-        ...baseFilterAssigneeSelect,
-      },
-      where: {
-        workflowDefinitionId: { in: [riskScoreMachineKybId] },
-        businessId: { not: null },
-      },
-    },
-    project1.id,
-  );
-
-  await createFilter(
-    "KYB with UBO's",
-    'businesses',
-    {
-      select: {
-        id: true,
-        status: true,
-        assigneeId: true,
-        createdAt: true,
-        context: true,
-        state: true,
-        tags: true,
-        ...baseFilterDefinitionSelect,
-        ...baseFilterBusinessSelect,
-        ...baseFilterAssigneeSelect,
-        childWorkflowsRuntimeData: true,
-      },
-      where: {
-        workflowDefinitionId: { in: ['kyb_with_associated_companies_example'] },
-        businessId: { not: null },
-      },
-    },
-    project1.id,
-  );
-
   await client.$transaction(async () =>
     endUserIds.map(async (id, index) =>
       client.endUser.create({
@@ -963,92 +543,15 @@ async function seed() {
     ),
   );
 
-  await client.$transaction(async tx => {
-    businessRiskIds.map(async (id, index) => {
-      const riskWf = async () => ({
-        runtimeId: `test-workflow-risk-id-${index}`,
-        workflowDefinitionId: riskScoreMachineKybId,
-        workflowDefinitionVersion: 1,
-        context: await createMockBusinessContextData(id, index + 1),
-        createdAt: faker.date.recent(2),
-        state: DEFAULT_INITIAL_STATE,
-        projectId: project1.id,
-      });
-
-      return client.business.create({
-        data: generateBusiness({
-          id,
-          workflow: await riskWf(),
-          projectId: project1.id,
-        }),
-      });
-    });
-
-    businessIds.map(async id => {
-      const exampleWf = {
-        workflowDefinitionId: onboardingMachineKybId,
-        workflowDefinitionVersion: manualMachineVersion,
-        // Would not display data in the backoffice UI
-        context: {},
-        state: DEFAULT_INITIAL_STATE,
-        createdAt: faker.date.recent(2),
-      };
-
-      return client.business.create({
-        data: generateBusiness({
-          id,
-          workflow: exampleWf,
-          projectId: project1.id,
-        }),
-      });
-    });
-  });
-
-  // TODO: create business with enduser attched to them
-  // await client.business.create({
-  //   data: {
-  //     ...generateBusiness({}),
-  //     endUsers: {
-  //       create: [
-  //         {
-  //           assignedBy: 'Bob',
-  //           assignedAt: new Date(),
-  //           endUser: {
-  //             create: {
-  //                 ...generateEndUser({}),
-  //             },
-  //           },
-  //         },
-  //       ],
-  //     },
-  //   },
-  // });
   void client.$disconnect();
 
   console.info('Seeding database with custom seed...');
 
-  await customSeed();
-
-  await generateKybDefintion(client);
   await generateKycSessionDefinition(client);
   await generateKybKycWorkflowDefinition(client);
   await generateKycForE2eTest(client);
-  await generateCollectionKybWorkflow(client, project1.id);
-
-  const { parentWorkflow, uiDefinition } = await uiKybParentWithAssociatedCompanies(
-    client,
-    project1.id,
-  );
 
   await generateWebsiteMonitoringExample(client, project1.id);
-
-  await generateInitialCollectionFlowExample(client, {
-    workflowDefinitionId: parentWorkflow.id,
-    projectId: project1.id,
-    endUserId: endUserIds[0]!,
-    businessId: businessIds[0]!,
-    token: DEFAULT_TOKENS.KYB,
-  });
 
   await generateKycManualReviewRuntimeAndToken(client, {
     workflowDefinitionId: kycWorkflowDefinitionId,
@@ -1076,33 +579,11 @@ async function createUsers({ project1, project2 }: any, client: PrismaClient) {
     adminUser,
     {
       email: 'agent1@ballerine.com',
-      firstName: faker.name.firstName(),
-      lastName: faker.name.lastName(),
+      firstName: 'Ezy', //faker.name.firstName(),
+      lastName: 'Mukendi', //faker.name.lastName(),
       password: await hash('agent1', BCRYPT_SALT),
       roles: ['user'],
       avatarUrl: faker.image.people(200, 200, true),
-      userToProjects: {
-        create: { projectId: project2.id },
-      },
-    },
-    {
-      email: 'agent2@ballerine.com',
-      firstName: faker.name.firstName(),
-      lastName: faker.name.lastName(),
-      password: await hash('agent2', BCRYPT_SALT),
-      roles: ['user'],
-      avatarUrl: faker.image.people(200, 200, true),
-      userToProjects: {
-        create: { projectId: project2.id },
-      },
-    },
-    {
-      email: 'agent3@ballerine.com',
-      firstName: faker.name.firstName(),
-      lastName: faker.name.lastName(),
-      password: await hash('agent3', BCRYPT_SALT),
-      roles: ['user'],
-      avatarUrl: null,
       userToProjects: {
         create: { projectId: project1.id },
       },

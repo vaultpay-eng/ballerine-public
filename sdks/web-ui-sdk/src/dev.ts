@@ -3,8 +3,18 @@ import { flows } from './main';
 import { DocumentKind, DocumentType } from './lib/contexts/app-state';
 import { FlowsInitOptions } from './types/BallerineSDK';
 
+// TODO: Ntambwa understand this for web-ui-sdk this represent the user flow of kyc and kyb
+
 const ballerineInitConfig: FlowsInitOptions = {
-  endUserInfo: { id: 'test-id' },
+  endUserInfo: {
+    id: 'test-id',
+    email: 'ntambwa@gmail.com',
+    phone: '1234567890',
+    language: 'en',
+    firstName: 'Ntambwa',
+    lastName: 'Basa',
+    dateOfBirth: '1990-01-01T00:00:00.000Z',
+  },
   translations: {
     overrides: {},
   },
