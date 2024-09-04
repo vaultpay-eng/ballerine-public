@@ -102,7 +102,7 @@ services:
         value: 80
 
   - type: web
-    name: ballerine-postgres
+    name: ballerine-postgres-plv8
     runtime: image
     image:
       url: docker.io/sibedge/postgres-plv8:15.3-3.1.7
