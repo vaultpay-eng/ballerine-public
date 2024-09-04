@@ -3,8 +3,8 @@ services:
     name: ballerine-back-office
     runtime: docker
     region: ohio
-    dockerfilePath: ./Dockerfile.back-office
-    dockerContext: .
+    dockerfilePath: ./apps/backoffice-v2/Dockerfile
+    dockerContext: ./apps/backoffice-v2
     buildCommand: docker build --build-arg NPM_LOG_LEVEL=notice .
     plan: starter
     envVars:
@@ -21,7 +21,7 @@ services:
       - key: VITE_FETCH_SIGNED_URL
         sync: false
       - key: VITE_ENVIRONMENT_NAME
-        value: local
+        value: development
       - key: VITE_KYB_DEFINITION_ID
         value: kyb_parent_kyc_session_example
 
