@@ -14,8 +14,8 @@ services:
         value: https://ballerine-workflow-service.onrender.com/api/v1/
       - key: VITE_API_KEY
         value: secret
-      - key: VITE_ENVIRONMENT_NAME
-        value: production
+      # - key: VITE_ENVIRONMENT_NAME
+      #   value: development
 
   - type: web
     name: ballerine-kyb-app
@@ -32,8 +32,8 @@ services:
         value: https://ballerine-workflow-service.onrender.com/api/v1/
       - key: VITE_API_KEY
         value: secret
-      - key: VITE_ENVIRONMENT_NAME
-        value: production
+      # - key: VITE_ENVIRONMENT_NAME
+      #   value: development
       - key: VITE_KYB_API_URL
         value: https://ballerine-workflow-service.onrender.com/api/v1/
 
@@ -52,8 +52,8 @@ services:
         value: https://ballerine-workflow-service.onrender.com/api/v1/
       - key: VITE_API_KEY
         value: secret
-      - key: VITE_ENVIRONMENT_NAME
-        value: production
+      # - key: VITE_ENVIRONMENT_NAME
+      #   value: development
       - key: VITE_KYB_API_URL
         value: https://ballerine-workflow-service.onrender.com/api/v1/
       - key: VITE_IMAGE_LOGO_URL
@@ -69,6 +69,24 @@ services:
     envVars:
       - key: PORT
         value: 3000
+      - key: BACKOFFICE_PORT
+        value: 5137
+      - key: WORKFLOW_DASHBOARD_PORT
+        value: 5200
+      - key: KYB_APP_PORT
+        value: 5201
+      - key: WORKFLOW_SVC_PORT
+        value: 3000
+      - key: WEBSOCKET_SVC_PORT
+        value: 3500
+      - key: BACKOFFICE_CORS_ORIGIN
+        value: http://ballerine-workflow-service.onrender.com:5137
+      - key: WORKFLOW_DASHBOARD_CORS_ORIGIN
+        value: http://ballerine-workflow-service.onrender.com:5200
+      - key: KYB_EXAMPLE_CORS_ORIGIN
+        value: http://ballerine-workflow-service.onrender.com:5201
+      - key: APP_API_URL
+        value: https://ballerine-workflow-service.onrender.com:3000
       - key: BCRYPT_SALT
         value: 10
       - key: SESSION_EXPIRATION_IN_MINUTES
@@ -84,19 +102,11 @@ services:
       - key: API_KEY
         value: secret
       - key: NODE_ENV
-        value: production
+        value: development
       - key: COMPOSE_PROJECT_NAME
         value: ballerine-x
       - key: SESSION_SECRET
         value: secret
-      - key: BACKOFFICE_CORS_ORIGIN
-        value: http://ballerine-workflow-service.onrender.com/
-      - key: WORKFLOW_DASHBOARD_CORS_ORIGIN
-        value: http://ballerine-workflow-service.onrender.com/
-      - key: KYB_EXAMPLE_CORS_ORIGIN
-        value: http://ballerine-workflow-service.onrender.com/
-      - key: APP_API_URL
-        value: https://ballerine-workflow-service.onrender.com
       - key: EMAIL_API_TOKEN
         value: ''
       - key: EMAIL_API_URL
@@ -108,7 +118,7 @@ services:
       - key: UNIFIED_API_SHARED_SECRET
         value: 'secret'
       - key: ENVIRONMENT_NAME
-        value: production
+        value: development
       - key: HASHING_KEY_SECRET
         value: secret
       - key: HASHING_KEY_SECRET_BASE64
@@ -117,6 +127,12 @@ services:
         value: secret
       - key: DOMAIN_NAME
         value: https://ballerine-workflow-service.onrender.com
+      - key: VITE_API_URL
+        value: https://ballerine-workflow-service.onrender.com/api/v1/
+      - key: WEBHOOK_SECRET
+        value: secret
+      - key: WEBHOOK_URL
+        value: https://hkdk.events/n8jmuhxpo4xf5l
 
   - type: web
     name: ballerine-postgres
