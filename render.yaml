@@ -104,8 +104,8 @@ services:
         value: admin
       - key: POSTGRES_PASSWORD
         value: admin
-      - key: POSTGRES_DB
-        value: postgres
+      # - key: POSTGRES_DB
+      #   value: postgres
       - key: PATH
         value: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       - key: LANG
