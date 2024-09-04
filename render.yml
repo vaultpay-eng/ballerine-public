@@ -1,11 +1,11 @@
 services:
   - type: web
-    name: ballerine-back-office
+    name: ballerine-case-management
     env: docker
     dockerfilePath: ./apps/backoffice-v2/Dockerfile
     dockerContext: ./apps/backoffice-v2
     buildCommand: docker build --build-arg NPM_LOG_LEVEL=notice .
-    startCommand: docker run backoffice
+    plan: starter
     envVars:
       - key: PORT
         value: 80
@@ -16,7 +16,7 @@ services:
     dockerfilePath: ./apps/kyb-app/Dockerfile
     dockerContext: ./apps/kyb-app
     buildCommand: docker build --build-arg NPM_LOG_LEVEL=notice .
-    startCommand: docker run kyb-app
+    plan: starter
     envVars:
       - key: PORT
         value: 80
@@ -29,19 +29,21 @@ services:
     name: ballerine-workflow-service
     env: docker
     image: ghcr.io/ballerine-io/workflows-service:latest
-    disk:
-      name: postgres-data
-      mountPath: /var/lib/postgresql/data
-      sizeGB: 10
+    plan: starter
+    region: ohio
     startCommand: |
       /bin/sh -c "npm run db:init && npm run seed && dumb-init npm run prod"
     envVars:
+      - key: PORT
+        value: 3000
       - key: BCRYPT_SALT
         sync: false
       - key: SESSION_EXPIRATION_IN_MINUTES
         sync: false
       - key: DB_URL
-        value: postgres://${DB_USER}:${DB_PASSWORD}@${RENDER_INTERNAL_HOSTNAME}:${DB_PORT}
+        fromDatabase:
+          name: ballerine-postgres
+          property: connectionString
       - key: API_KEY
         sync: false
       - key: NODE_ENV
@@ -49,19 +51,23 @@ services:
       - key: COMPOSE_PROJECT_NAME
         sync: false
       - key: DB_PORT
-        sync: false
+        fromDatabase:
+          name: ballerine-postgres
+          property: port
       - key: DB_USER
-        sync: false
+        fromDatabase:
+          name: ballerine-postgres
+          property: user
       - key: DB_PASSWORD
-        sync: false
+        fromDatabase:
+          name: ballerine-postgres
+          property: password
       - key: SESSION_SECRET
-        sync: false
+        generateValue: true
       - key: BACKOFFICE_CORS_ORIGIN
         value: https://${RENDER_EXTERNAL_HOSTNAME}
       - key: WORKFLOW_DASHBOARD_CORS_ORIGIN
         value: https://${RENDER_EXTERNAL_HOSTNAME}
-      - key: PORT
-        value: 3000
       - key: KYB_EXAMPLE_CORS_ORIGIN
         value: https://${RENDER_EXTERNAL_HOSTNAME}
       - key: APP_API_URL
@@ -91,12 +97,18 @@ services:
     dockerfilePath: ./apps/workflows-dashboard/Dockerfile
     dockerContext: ./apps/workflows-dashboard
     buildCommand: docker build --build-arg NPM_LOG_LEVEL=notice .
-    startCommand: docker run workflows-dashboard
+    plan: starter
     envVars:
       - key: PORT
         value: 80
 
 databases:
-  - name: postgres
+  - name: ballerine-postgres
+    databaseName: ledger
     plan: standard
-    postgresMajorVersion: 15
+    postgresMajorVersion: "15"
+    user: admin
+    region: ohio
+    ipAllowList: [] # private connection only
+
+version: "1"
