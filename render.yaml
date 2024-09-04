@@ -2,6 +2,7 @@ services:
   - type: web
     name: ballerine-back-office
     runtime: docker
+    region: ohio
     dockerfilePath: ./apps/backoffice-v2/Dockerfile
     dockerContext: ./apps/backoffice-v2
     buildCommand: docker build --build-arg NPM_LOG_LEVEL=notice .
@@ -13,6 +14,7 @@ services:
   - type: web
     name: ballerine-kyb-app
     runtime: docker
+    region: ohio
     dockerfilePath: ./apps/kyb-app/Dockerfile
     dockerContext: ./apps/kyb-app
     buildCommand: docker build --build-arg NPM_LOG_LEVEL=notice .
@@ -85,6 +87,7 @@ services:
   - type: web
     name: ballerine-workflows-dashboard
     runtime: docker
+    region: ohio
     dockerfilePath: ./apps/workflows-dashboard/Dockerfile
     dockerContext: ./apps/workflows-dashboard
     buildCommand: docker build --build-arg NPM_LOG_LEVEL=notice .
@@ -96,6 +99,7 @@ services:
   - type: web
     name: postgres
     runtime: image
+    region: ohio
     image:
       url: docker.io/sibedge/postgres-plv8:15.3-3.1.7
     plan: starter
@@ -104,8 +108,6 @@ services:
         value: admin
       - key: POSTGRES_PASSWORD
         value: admin
-      # - key: POSTGRES_DB
-      #   value: postgres
       - key: PATH
         value: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       - key: LANG
@@ -124,15 +126,5 @@ services:
         value: "3.1.7"
       - key: PORT
         value: "5432"
-    region: ohio
-
-databases:
-  - name: ballerine-postgres
-    databaseName: ballerine
-    plan: standard
-    postgresMajorVersion: "15"
-    user: admin
-    region: ohio
-    ipAllowList: [] # private connection only
 
 version: "1"
