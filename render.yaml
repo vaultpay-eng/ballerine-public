@@ -23,7 +23,7 @@ services:
       - key: PORT
         value: 80
       - key: VITE_API_URL
-        value: https://${RENDER_EXTERNAL_HOSTNAME}/api/v1/
+        value: https://ballerine-workflow-service.onrender.com/api/v1/
       - key: VITE_KYB_DEFINITION_ID
         value: kyb_parent_kyc_session_example
 
@@ -58,19 +58,19 @@ services:
       - key: SESSION_SECRET
         generateValue: true
       - key: BACKOFFICE_CORS_ORIGIN
-        value: https://${RENDER_EXTERNAL_HOSTNAME}
+        value: https://ballerine-back-office.onrender.com
       - key: WORKFLOW_DASHBOARD_CORS_ORIGIN
-        value: https://${RENDER_EXTERNAL_HOSTNAME}
+        value: https://ballerine-workflows-dashboard.onrender.com
       - key: KYB_EXAMPLE_CORS_ORIGIN
-        value: https://${RENDER_EXTERNAL_HOSTNAME}
+        value: https://ballerine-kyb-app.onrender.com
       - key: APP_API_URL
-        value: https://alon.ballerine.dev
+        value: https://ballerine-workflow-service.onrender.com
       - key: EMAIL_API_TOKEN
         value: ''
       - key: EMAIL_API_URL
         value: https://api.sendgrid.com/v3/mail/send
       - key: UNIFIED_API_URL
-        value: https://unified-api-test.eu.ballerine.app
+        value: https://ballerine-workflow-service.onrender.com
       - key: UNIFIED_API_TOKEN
         value: ''
       - key: UNIFIED_API_SHARED_SECRET
