@@ -43,10 +43,15 @@ export const fetchSignIn = async ({ callbackUrl, body }: ISignInProps) => {
          * sign in route uses a different authentication method
          * or doesn't use one.
          */
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer secret`,
       },
     },
   });
+
+  console.log('fetchSignIn auth/login Session Information:', JSON.stringify(session, null, 2));
+  console.log('fetchSignIn auth/login Error Information:', JSON.stringify(error, null, 2));
+  console.log('fetchSignIn auth/login Body Information:', JSON.stringify(body, null, 2));
+  console.log('fetchSignIn auth/login Callback URL:', callbackUrl);
 
   return handleZodError(error, session);
 };
@@ -61,7 +66,7 @@ export const fetchAuthenticatedUser = async () => {
   });
 
   try {
-    console.log('Session Information:', JSON.stringify(session, null, 2));
+    console.log('fetchAuthenticatedUser auth/session Session Information:', JSON.stringify(session, null, 2));
 
     posthog.identify(session?.user?.id, {
       email: session?.user?.email,
