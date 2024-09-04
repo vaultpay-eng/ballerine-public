@@ -65,27 +65,27 @@ export const fetchAuthenticatedUser = async () => {
     }),
   });
 
-  const testSession = {
-    "user": {
-      "id": "cm0o9t1k701p7pi5efdwzyqwb",
-      "email": "admin@admin.com",
-      "firstName": "Tatum",
-      "lastName": "Kling",
-      "roles": [
-        "user"
-      ]
-    }
-  };
-  
+  // const testSession = {
+  //   "user": {
+  //     "id": "cm0o9t1k701p7pi5efdwzyqwb",
+  //     "email": "admin@admin.com",
+  //     "firstName": "Tatum",
+  //     "lastName": "Kling",
+  //     "roles": [
+  //       "user"
+  //     ]
+  //   }
+  // };
+
   try {
     console.log('fetchAuthenticatedUser auth/session Session Information:', JSON.stringify(session, null, 2));
-    posthog.identify(testSession?.user?.id, {
-      email: testSession?.user?.email,
-      name: testSession?.user?.lastName,
+    posthog.identify(session?.user?.id, {
+      email: session?.user?.email,
+      name: session?.user?.lastName,
     });
   } catch (error) {
     console.error('Error identifying user in PostHog:', error);
   }
 
-  return handleZodError(error, testSession);
+  return handleZodError(error, session);
 };
