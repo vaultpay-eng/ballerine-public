@@ -21,7 +21,7 @@ services:
       - key: VITE_FETCH_SIGNED_URL
         sync: false
       - key: VITE_ENVIRONMENT_NAME
-        value: development
+        value: local
       - key: VITE_KYB_DEFINITION_ID
         value: kyb_parent_kyc_session_example
 
@@ -51,7 +51,7 @@ services:
       - key: VITE_FETCH_SIGNED_URL
         sync: false
       - key: VITE_ENVIRONMENT_NAME
-        value: development
+        value: local
 
   - type: web
     name: ballerine-workflows-dashboard
@@ -73,7 +73,7 @@ services:
       - key: VITE_FETCH_SIGNED_URL
         sync: false
       - key: VITE_ENVIRONMENT_NAME
-        value: development
+        value: local
 
   - type: web
     name: ballerine-workflow-service
