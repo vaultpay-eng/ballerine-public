@@ -11,11 +11,19 @@ services:
       - key: PORT
         value: 80
       - key: VITE_API_URL
-        value: https://ballerine-workflow-service.onrender.com/api/v1/
+        value: https://ballerine-workflow-service.onrender.com/api/v1/internal
       - key: VITE_API_KEY
         value: secret
+      - key: VITE_AUTH_ENABLED
+        sync: false
+      - key: VITE_MOCK_SERVER
+        sync: false
+      - key: VITE_FETCH_SIGNED_URL
+        sync: false
       # - key: VITE_ENVIRONMENT_NAME
       #   value: development
+      - key: VITE_KYB_DEFINITION_ID
+        value: kyb_parent_kyc_session_example
 
   - type: web
     name: ballerine-kyb-app
@@ -29,13 +37,21 @@ services:
       - key: PORT
         value: 80
       - key: VITE_API_URL
-        value: https://ballerine-workflow-service.onrender.com/api/v1/
+        value: https://ballerine-workflow-service.onrender.com/api/v1/internal
       - key: VITE_API_KEY
         value: secret
       # - key: VITE_ENVIRONMENT_NAME
       #   value: development
       - key: VITE_KYB_API_URL
-        value: https://ballerine-workflow-service.onrender.com/api/v1/
+        value: https://ballerine-workflow-service.onrender.com/api/v1/internal
+      - key: VITE_KYB_DEFINITION_ID
+        value: kyb_parent_kyc_session_example
+      - key: VITE_AUTH_ENABLED
+        sync: false
+      - key: VITE_MOCK_SERVER
+        sync: false
+      - key: VITE_FETCH_SIGNED_URL
+        sync: false
 
   - type: web
     name: ballerine-workflows-dashboard
@@ -49,15 +65,23 @@ services:
       - key: PORT
         value: 80
       - key: VITE_API_URL
-        value: https://ballerine-workflow-service.onrender.com/api/v1/
+        value: https://ballerine-workflow-service.onrender.com/api/v1/internal
       - key: VITE_API_KEY
         value: secret
       # - key: VITE_ENVIRONMENT_NAME
       #   value: development
       - key: VITE_KYB_API_URL
-        value: https://ballerine-workflow-service.onrender.com/api/v1/
+        value: https://ballerine-workflow-service.onrender.com/api/v1/internal
       - key: VITE_IMAGE_LOGO_URL
         value: https://raw.githubusercontent.com/vault-pay/logo/a53fe08f64054061fe5b7ad9e61a05b7d4416ca0/vaultpay-new-large-logo.png
+      - key: VITE_KYB_DEFINITION_ID
+        value: kyb_parent_kyc_session_example
+      - key: VITE_AUTH_ENABLED
+        sync: false
+      - key: VITE_MOCK_SERVER
+        sync: false
+      - key: VITE_FETCH_SIGNED_URL
+        sync: false
 
   - type: web
     name: ballerine-workflow-service
@@ -86,7 +110,7 @@ services:
       - key: KYB_EXAMPLE_CORS_ORIGIN
         value: http://ballerine-workflow-service.onrender.com:5201
       - key: APP_API_URL
-        value: https://ballerine-workflow-service.onrender.com:3000
+        value: https://alon.ballerine.dev
       - key: BCRYPT_SALT
         value: 10
       - key: SESSION_EXPIRATION_IN_MINUTES
@@ -112,11 +136,7 @@ services:
       - key: EMAIL_API_URL
         value: https://api.sendgrid.com/v3/mail/send
       - key: UNIFIED_API_URL
-        value: https://ballerine-workflow-service.onrender.com
-      - key: UNIFIED_API_TOKEN
-        value: 'secret'
-      - key: UNIFIED_API_SHARED_SECRET
-        value: 'secret'
+        value: https://unified-api-test.eu.ballerine.app
       - key: ENVIRONMENT_NAME
         value: development
       - key: HASHING_KEY_SECRET
