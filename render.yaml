@@ -42,7 +42,7 @@ services:
       - key: SESSION_EXPIRATION_IN_MINUTES
         sync: false
       - key: DB_URL
-        value: postgres://admin:admin@postgres-2qf1:5432/postgres
+        value: postgres://admin:admin@postgres-2qf1:5432
       - key: DB_USER
         value: admin
       - key: DB_PASSWORD
@@ -97,7 +97,7 @@ services:
         value: 80
 
   - type: web
-    name: postgres
+    name: ballerine-postgres
     runtime: image
     region: ohio
     image:
