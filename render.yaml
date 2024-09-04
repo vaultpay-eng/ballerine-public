@@ -101,7 +101,7 @@ services:
       - key: PORT
         value: 80
 
-  - type: pserv
+  - type: web
     name: ballerine-postgres
     runtime: image
     image:
