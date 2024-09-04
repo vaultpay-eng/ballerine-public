@@ -94,11 +94,11 @@ services:
       - key: BACKOFFICE_CORS_ORIGIN
         value: https://ballerine-back-office.onrender.com
       - key: WORKFLOW_DASHBOARD_CORS_ORIGIN
-        value: http://ballerine-workflow-service.onrender.com
+        value: https://ballerine-workflows-dashboard.onrender.com
       - key: KYB_EXAMPLE_CORS_ORIGIN
-        value: http://ballerine-workflow-service.onrender.com
+        value: https://ballerine-kyb-app.onrender.com
       - key: APP_API_URL
-        value: http://ballerine-workflow-service.onrender.com
+        value: https://ballerine-workflow-service.onrender.com
       - key: BCRYPT_SALT
         value: 10
       - key: SESSION_EXPIRATION_IN_MINUTES
@@ -124,7 +124,7 @@ services:
       - key: EMAIL_API_URL
         value: https://api.sendgrid.com/v3/mail/send
       - key: UNIFIED_API_URL
-        value: http://ballerine-workflow-service.onrender.com
+        value: https://ballerine-workflow-service.onrender.com
       - key: ENVIRONMENT_NAME
         value: development
       - key: HASHING_KEY_SECRET
@@ -134,9 +134,9 @@ services:
       - key: NOTION_API_KEY
         value: secret
       - key: DOMAIN_NAME
-        value: http://ballerine-workflow-service.onrender.com
+        value: https://ballerine-workflow-service.onrender.com
       - key: VITE_API_URL
-        value: http://ballerine-workflow-service.onrender.com/api/v1/
+        value: https://ballerine-workflow-service.onrender.com/api/v1/internal
       - key: WEBHOOK_SECRET
         value: secret
       - key: WEBHOOK_URL
