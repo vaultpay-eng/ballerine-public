@@ -1,7 +1,7 @@
 services:
   - type: web
     name: ballerine-back-office
-    runtime: image
+    runtime: docker
     dockerfilePath: ./apps/backoffice-v2/Dockerfile
     dockerContext: ./apps/backoffice-v2
     buildCommand: docker build --build-arg NPM_LOG_LEVEL=notice .
@@ -12,7 +12,7 @@ services:
 
   - type: web
     name: ballerine-kyb-app
-    runtime: image
+    runtime: docker
     dockerfilePath: ./apps/kyb-app/Dockerfile
     dockerContext: ./apps/kyb-app
     buildCommand: docker build --build-arg NPM_LOG_LEVEL=notice .
@@ -27,7 +27,7 @@ services:
 
   - type: web
     name: ballerine-workflow-service
-    runtime: image
+    runtime: docker
     dockerfilePath: ./Dockerfile.workflow-service
     dockerContext: .
     plan: starter
@@ -92,7 +92,7 @@ services:
 
   - type: web
     name: ballerine-workflows-dashboard
-    runtime: image
+    runtime: docker
     dockerfilePath: ./apps/workflows-dashboard/Dockerfile
     dockerContext: ./apps/workflows-dashboard
     buildCommand: docker build --build-arg NPM_LOG_LEVEL=notice .
