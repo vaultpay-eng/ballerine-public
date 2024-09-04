@@ -61,6 +61,8 @@ export const fetchAuthenticatedUser = async () => {
   });
 
   try {
+    console.log('Session Information:', JSON.stringify(session, null, 2));
+
     posthog.identify(session?.user?.id, {
       email: session?.user?.email,
       name: session?.user?.fullName,

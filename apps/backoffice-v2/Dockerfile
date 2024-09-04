@@ -1,4 +1,5 @@
-FROM node:18.17.1-bullseye-slim as dev
+# FROM node:18.17.1-bullseye-slim as dev
+FROM node:18.17.1-bullseye-slim
 
 WORKDIR /app
 
@@ -20,12 +21,12 @@ EXPOSE 5137
 
 CMD ["npm", "run", "dev", "--host"]
 
-FROM nginx:stable-alpine as prod
+# FROM nginx:stable-alpine as prod
 
-COPY --from=dev /app/dist /usr/share/nginx/html
+# COPY --from=dev /app/dist /usr/share/nginx/html
 
-COPY example.nginx.conf /etc/nginx/conf.d/default.conf
+# COPY example.nginx.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 80
+# EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+# CMD ["nginx", "-g", "daemon off;"]
