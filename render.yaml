@@ -20,8 +20,8 @@ services:
         sync: false
       - key: VITE_FETCH_SIGNED_URL
         sync: false
-      # - key: VITE_ENVIRONMENT_NAME
-      #   value: development
+      - key: VITE_ENVIRONMENT_NAME
+        value: production
       - key: VITE_KYB_DEFINITION_ID
         value: kyb_parent_kyc_session_example
 
@@ -50,6 +50,8 @@ services:
         sync: false
       - key: VITE_FETCH_SIGNED_URL
         sync: false
+      - key: VITE_ENVIRONMENT_NAME
+        value: production
 
   - type: web
     name: ballerine-workflows-dashboard
@@ -70,6 +72,8 @@ services:
         sync: false
       - key: VITE_FETCH_SIGNED_URL
         sync: false
+      - key: VITE_ENVIRONMENT_NAME
+        value: production
 
   - type: web
     name: ballerine-workflow-service
@@ -110,7 +114,7 @@ services:
       - key: API_KEY
         value: secret
       - key: NODE_ENV
-        value: development
+        value: production
       - key: COMPOSE_PROJECT_NAME
         value: ballerine-x
       - key: SESSION_SECRET
@@ -122,7 +126,7 @@ services:
       - key: UNIFIED_API_URL
         value: http://ballerine-workflow-service.onrender.com
       - key: ENVIRONMENT_NAME
-        value: development
+        value: production
       - key: HASHING_KEY_SECRET
         value: secret
       - key: HASHING_KEY_SECRET_BASE64
