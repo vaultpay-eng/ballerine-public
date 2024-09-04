@@ -87,16 +87,12 @@ services:
         value: 5200
       - key: KYB_APP_PORT
         value: 5201
-      - key: WORKFLOW_SVC_PORT
-        value: 3000
-      - key: WEBSOCKET_SVC_PORT
-        value: 3500
       - key: BACKOFFICE_CORS_ORIGIN
-        value: http://ballerine-workflow-service.onrender.com:5137
+        value: http://ballerine-workflow-service.onrender.com
       - key: WORKFLOW_DASHBOARD_CORS_ORIGIN
-        value: http://ballerine-workflow-service.onrender.com:5200
+        value: http://ballerine-workflow-service.onrender.com
       - key: KYB_EXAMPLE_CORS_ORIGIN
-        value: http://ballerine-workflow-service.onrender.com:5201
+        value: http://ballerine-workflow-service.onrender.com
       - key: APP_API_URL
         value: http://ballerine-workflow-service.onrender.com
       - key: BCRYPT_SALT
