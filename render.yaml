@@ -76,7 +76,7 @@ services:
       - key: UNIFIED_API_SHARED_SECRET
         value: ''
       - key: ENVIRONMENT_NAME
-        value: development
+        value: production
       - key: HASHING_KEY_SECRET
         sync: false
       - key: HASHING_KEY_SECRET_BASE64
