@@ -100,12 +100,28 @@ services:
       url: docker.io/sibedge/postgres-plv8:15.3-3.1.7
     plan: starter
     envVars:
-    - key: PORT
-      value: 5432
-    - key: POSTGRES_PASSWORD
-      value: admin
-    - key: POSTGRES_USER
-      value: admin
+      - key: POSTGRES_USER
+        value: admin
+      - key: POSTGRES_PASSWORD
+        value: admin
+      - key: PATH
+        value: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - key: LANG
+        value: en_US.utf8
+      - key: PG_MAJOR
+        value: "15"
+      - key: PG_VERSION
+        value: "15.3"
+      - key: PG_SHA256
+        value: ffc7d4891f00ffbf5c3f4eab7fbbced8460b8c0ee63c5a5167133b9e6599d932
+      - key: DOCKER_PG_LLVM_DEPS
+        value: llvm15-dev clang15
+      - key: PGDATA
+        value: /var/lib/postgresql/data
+      - key: PLV8_VERSION
+        value: "3.1.7"
+      - key: PORT
+        value: "5432"
     region: ohio
 
 databases:
