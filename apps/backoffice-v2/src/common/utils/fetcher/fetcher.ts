@@ -18,7 +18,7 @@ export const fetcher: IFetcher = async ({
   timeout = 10000,
   schema,
   isBlob = false,
-  isFormData = false,
+  isFormData = true, // TODO: Why is it false here. It's causing the bearer token to miss in the request
 }) => {
   const controller = new AbortController();
   const { signal } = controller;
