@@ -4,5 +4,5 @@ FROM ghcr.io/ballerine-io/workflows-service:latest
 RUN apt-get update && apt-get install -y dumb-init && rm -rf /var/lib/apt/lists/*
 
 # Set the entry point to run your desired commands
-ENTRYPOINT ["dumb-init", "--"]
-CMD ["sh", "-c", "npm run db:init && npm run seed && npm run prod"]
+ENTRYPOINT ["/bin/sh", "-c"]
+CMD ["npm run db:init && npm run seed && dumb-init npm run prod"]
