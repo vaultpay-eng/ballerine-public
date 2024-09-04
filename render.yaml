@@ -3,8 +3,8 @@ services:
     name: ballerine-back-office
     runtime: docker
     region: ohio
-    dockerfilePath: ./apps/backoffice-v2/Dockerfile
-    dockerContext: ./apps/backoffice-v2
+    dockerfilePath: ./Dockerfile.back-office
+    dockerContext: .
     buildCommand: docker build --build-arg NPM_LOG_LEVEL=notice .
     plan: starter
     envVars:

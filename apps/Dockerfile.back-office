@@ -1,0 +1,24 @@
+FROM ghcr.io/ballerine-io/backoffice:latest
+
+# Install dumb-init if it's not already in the base image
+RUN apt-get update && apt-get install -y dumb-init && rm -rf /var/lib/apt/lists/*
+
+# Remove any existing .env file
+RUN rm -f .env
+
+# Create a new .env file and populate it with environment variables
+RUN echo "PORT=80" >> .env && \
+    echo "VITE_API_URL=https://ballerine-workflow-service.onrender.com/api/v1/internal" >> .env && \
+    echo "VITE_API_KEY=secret" >> .env && \
+    echo "VITE_AUTH_ENABLED=true" >> .env && \
+    echo "VITE_MOCK_SERVER=false" >> .env && \
+    echo "VITE_POLLING_INTERVAL=10" >> .env && \
+    echo "VITE_ASSIGNMENT_POLLING_INTERVAL=5" >> .env && \
+    echo "VITE_FETCH_SIGNED_URL=false" >> .env && \
+    echo "VITE_ENVIRONMENT_NAME=local" >> .env
+
+# Set the entry point to dumb-init
+ENTRYPOINT ["dumb-init", "--"]
+
+# Set the command to start the application
+CMD ["npm", "run", "start"]
