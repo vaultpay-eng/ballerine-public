@@ -90,11 +90,11 @@ services:
       - key: SESSION_SECRET
         value: secret
       - key: BACKOFFICE_CORS_ORIGIN
-        value: https://ballerine-back-office.onrender.com
+        value: http://ballerine-workflow-service.onrender.com/
       - key: WORKFLOW_DASHBOARD_CORS_ORIGIN
-        value: https://ballerine-workflows-dashboard.onrender.com
+        value: http://ballerine-workflow-service.onrender.com/
       - key: KYB_EXAMPLE_CORS_ORIGIN
-        value: https://ballerine-kyb-app.onrender.com
+        value: http://ballerine-workflow-service.onrender.com/
       - key: APP_API_URL
         value: https://ballerine-workflow-service.onrender.com
       - key: EMAIL_API_TOKEN
