@@ -109,15 +109,15 @@ services:
     plan: starter
     envVars:
     - key: DB_PASSWORD
-      sync: false
+      value: admin
     - key: DB_USER
-      sync: false
+      value: admin
     - key: DB_PORT
-      sync: false
+      value: 5432
     - key: POSTGRES_PASSWORD
-      sync: false
+      value: admin
     - key: POSTGRES_USER
-      sync: false
+      value: admin
     region: ohio
 
 databases:
