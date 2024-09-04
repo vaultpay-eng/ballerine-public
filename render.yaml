@@ -101,24 +101,24 @@ services:
       - key: PORT
         value: 80
 
-  - type: web
-    name: ballerine-postgres-plv8
-    runtime: image
-    image:
-      url: docker.io/sibedge/postgres-plv8:15.3-3.1.7
-    plan: starter
-    envVars:
-    - key: DB_PASSWORD
-      value: admin
-    - key: DB_USER
-      value: admin
-    - key: DB_PORT
-      value: 5432
-    - key: POSTGRES_PASSWORD
-      value: admin
-    - key: POSTGRES_USER
-      value: admin
-    region: ohio
+  # - type: web
+  #   name: ballerine-postgres-plv8
+  #   runtime: image
+  #   image:
+  #     url: docker.io/sibedge/postgres-plv8:15.3-3.1.7
+  #   plan: starter
+  #   envVars:
+  #   - key: DB_PASSWORD
+  #     value: admin
+  #   - key: DB_USER
+  #     value: admin
+  #   - key: DB_PORT
+  #     value: 5432
+  #   - key: POSTGRES_PASSWORD
+  #     value: admin
+  #   - key: POSTGRES_USER
+  #     value: admin
+  #   region: ohio
 
 databases:
   - name: ballerine-postgres
