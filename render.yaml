@@ -10,6 +10,12 @@ services:
     envVars:
       - key: PORT
         value: 80
+      - key: VITE_API_URL
+        value: https://ballerine-workflow-service.onrender.com/api/v1/
+      - key: VITE_API_KEY
+        value: secret
+      - key: VITE_ENVIRONMENT_NAME
+        value: production
 
   - type: web
     name: ballerine-kyb-app
@@ -24,8 +30,34 @@ services:
         value: 80
       - key: VITE_API_URL
         value: https://ballerine-workflow-service.onrender.com/api/v1/
-      - key: VITE_KYB_DEFINITION_ID
-        value: kyb_parent_kyc_session_example
+      - key: VITE_API_KEY
+        value: secret
+      - key: VITE_ENVIRONMENT_NAME
+        value: production
+      - key: VITE_KYB_API_URL
+        value: https://ballerine-workflow-service.onrender.com/api/v1/
+
+  - type: web
+    name: ballerine-workflows-dashboard
+    runtime: docker
+    region: ohio
+    dockerfilePath: ./apps/workflows-dashboard/Dockerfile
+    dockerContext: ./apps/workflows-dashboard
+    buildCommand: docker build --build-arg NPM_LOG_LEVEL=notice .
+    plan: starter
+    envVars:
+      - key: PORT
+        value: 80
+      - key: VITE_API_URL
+        value: https://ballerine-workflow-service.onrender.com/api/v1/
+      - key: VITE_API_KEY
+        value: secret
+      - key: VITE_ENVIRONMENT_NAME
+        value: production
+      - key: VITE_KYB_API_URL
+        value: https://ballerine-workflow-service.onrender.com/api/v1/
+      - key: VITE_IMAGE_LOGO_URL
+        value: https://raw.githubusercontent.com/vault-pay/logo/a53fe08f64054061fe5b7ad9e61a05b7d4416ca0/vaultpay-new-large-logo.png
 
   - type: web
     name: ballerine-workflow-service
@@ -72,9 +104,9 @@ services:
       - key: UNIFIED_API_URL
         value: https://ballerine-workflow-service.onrender.com
       - key: UNIFIED_API_TOKEN
-        value: ''
+        value: 'secret'
       - key: UNIFIED_API_SHARED_SECRET
-        value: ''
+        value: 'secret'
       - key: ENVIRONMENT_NAME
         value: production
       - key: HASHING_KEY_SECRET
@@ -83,18 +115,8 @@ services:
         sync: false
       - key: NOTION_API_KEY
         sync: false
-
-  - type: web
-    name: ballerine-workflows-dashboard
-    runtime: docker
-    region: ohio
-    dockerfilePath: ./apps/workflows-dashboard/Dockerfile
-    dockerContext: ./apps/workflows-dashboard
-    buildCommand: docker build --build-arg NPM_LOG_LEVEL=notice .
-    plan: starter
-    envVars:
-      - key: PORT
-        value: 80
+      - key: DOMAIN_NAME
+        value: https://ballerine-workflow-service.onrender.com
 
   - type: web
     name: ballerine-postgres
