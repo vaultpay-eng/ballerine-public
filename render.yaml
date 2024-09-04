@@ -11,7 +11,7 @@ services:
       - key: PORT
         value: 80
       - key: VITE_API_URL
-        value: https://ballerine-workflow-service.onrender.com/api/v1/
+        value: http://ballerine-workflow-service.onrender.com/api/v1/
       - key: VITE_API_KEY
         value: secret
       - key: VITE_AUTH_ENABLED
@@ -37,11 +37,11 @@ services:
       - key: PORT
         value: 80
       - key: VITE_API_URL
-        value: https://ballerine-workflow-service.onrender.com/api/v1/
+        value: http://ballerine-workflow-service.onrender.com/api/v1/
       - key: VITE_API_KEY
         value: secret
       - key: VITE_KYB_API_URL
-        value: https://ballerine-workflow-service.onrender.com/api/v1/
+        value: http://ballerine-workflow-service.onrender.com/api/v1/
       - key: VITE_KYB_DEFINITION_ID
         value: kyb_parent_kyc_session_example
       - key: VITE_AUTH_ENABLED
@@ -63,7 +63,7 @@ services:
       - key: PORT
         value: 80
       - key: VITE_API_URL
-        value: https://ballerine-workflow-service.onrender.com/api/v1/
+        value: http://ballerine-workflow-service.onrender.com/api/v1/
       - key: VITE_AUTH_ENABLED
         sync: false
       - key: VITE_MOCK_SERVER
@@ -134,13 +134,13 @@ services:
       - key: NOTION_API_KEY
         value: secret
       - key: DOMAIN_NAME
-        value: https://ballerine-workflow-service.onrender.com
+        value: http://ballerine-workflow-service.onrender.com
       - key: VITE_API_URL
-        value: https://ballerine-workflow-service.onrender.com/api/v1/
+        value: http://ballerine-workflow-service.onrender.com/api/v1/
       - key: WEBHOOK_SECRET
         value: secret
       - key: WEBHOOK_URL
-        value: https://hkdk.events/n8jmuhxpo4xf5l
+        value: http://hkdk.events/n8jmuhxpo4xf5l
 
   - type: web
     name: ballerine-postgres
