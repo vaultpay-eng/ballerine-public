@@ -32,8 +32,6 @@ services:
       url: ghcr.io/ballerine-io/workflows-service:latest
     plan: starter
     region: ohio
-    startCommand: |
-      /bin/sh -c "npm run db:init && npm run seed && dumb-init npm run prod"
     envVars:
       - key: PORT
         value: 3000
