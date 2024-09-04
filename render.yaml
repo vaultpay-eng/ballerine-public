@@ -42,7 +42,7 @@ services:
       - key: SESSION_EXPIRATION_IN_MINUTES
         sync: false
       - key: DB_URL
-        value: postgres://admin:admin@ballerine-postgres:5432
+        value: postgres://admin:admin@ballerine-postgres:5432/postgres
       - key: DB_USER
         value: admin
       - key: DB_PASSWORD
