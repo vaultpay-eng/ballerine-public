@@ -40,7 +40,7 @@ services:
       - key: SESSION_EXPIRATION_IN_MINUTES
         sync: false
       - key: DB_URL
-        value: postgres://admin:$admin@postgres:$5432
+        value: postgres://admin:mypassword@postgres-2qf1:5432/postgres
       - key: DB_USER
         value: admin
       - key: DB_PASSWORD
@@ -104,6 +104,8 @@ services:
         value: admin
       - key: POSTGRES_PASSWORD
         value: admin
+      - key: POSTGRES_DB
+        value: postgres
       - key: PATH
         value: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       - key: LANG
