@@ -40,7 +40,7 @@ services:
       - key: SESSION_EXPIRATION_IN_MINUTES
         sync: false
       - key: DB_URL
-        value: postgres://admin:mypassword@postgres-2qf1:5432/postgres
+        value: postgres://admin:admin@postgres-2qf1:5432/postgres
       - key: DB_USER
         value: admin
       - key: DB_PASSWORD
