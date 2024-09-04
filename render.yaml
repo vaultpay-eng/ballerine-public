@@ -1,7 +1,7 @@
 services:
   - type: web
     name: ballerine-back-office
-    env: docker
+    runtime: docker
     dockerfilePath: ./apps/backoffice-v2/Dockerfile
     dockerContext: ./apps/backoffice-v2
     buildCommand: docker build --build-arg NPM_LOG_LEVEL=notice .
@@ -12,7 +12,7 @@ services:
 
   - type: web
     name: ballerine-kyb-app
-    env: docker
+    runtime: docker
     dockerfilePath: ./apps/kyb-app/Dockerfile
     dockerContext: ./apps/kyb-app
     buildCommand: docker build --build-arg NPM_LOG_LEVEL=notice .
@@ -27,12 +27,13 @@ services:
 
   - type: web
     name: ballerine-workflow-service
-    env: docker
+    runtime: docker
     image:
       url: ghcr.io/ballerine-io/workflows-service:latest
     plan: starter
     region: ohio
-    startCommand: "dumb-init npm run prod"
+    startCommand: |
+      /bin/sh -c "npm run db:init && npm run seed && dumb-init npm run prod"
     envVars:
       - key: PORT
         value: 3000
@@ -93,7 +94,7 @@ services:
 
   - type: web
     name: ballerine-workflows-dashboard
-    env: docker
+    runtime: docker
     dockerfilePath: ./apps/workflows-dashboard/Dockerfile
     dockerContext: ./apps/workflows-dashboard
     buildCommand: docker build --build-arg NPM_LOG_LEVEL=notice .
