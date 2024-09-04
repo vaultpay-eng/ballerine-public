@@ -92,7 +92,7 @@ services:
       - key: KYB_APP_PORT
         value: 5201
       - key: BACKOFFICE_CORS_ORIGIN
-        value: http://ballerine-workflow-service.onrender.com
+        value: https://ballerine-back-office.onrender.com
       - key: WORKFLOW_DASHBOARD_CORS_ORIGIN
         value: http://ballerine-workflow-service.onrender.com
       - key: KYB_EXAMPLE_CORS_ORIGIN
