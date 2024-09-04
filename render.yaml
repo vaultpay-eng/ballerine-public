@@ -41,7 +41,7 @@ services:
         sync: false
       - key: DB_URL
         fromDatabase:
-          name: ballerine-postgres-plv8
+          name: ballerine-postgres
           property: connectionString
       - key: API_KEY
         sync: false
@@ -51,15 +51,15 @@ services:
         sync: false
       - key: DB_PORT
         fromDatabase:
-          name: ballerine-postgres-plv8
+          name: ballerine-postgres
           property: port
       - key: DB_USER
         fromDatabase:
-          name: ballerine-postgres-plv8
+          name: ballerine-postgres
           property: user
       - key: DB_PASSWORD
         fromDatabase:
-          name: ballerine-postgres-plv8
+          name: ballerine-postgres
           property: password
       - key: SESSION_SECRET
         generateValue: true
@@ -102,7 +102,7 @@ services:
         value: 80
 
   - type: pserv
-    name: ballerine-postgres-plv8
+    name: ballerine-postgres
     runtime: image
     image:
       url: docker.io/sibedge/postgres-plv8:15.3-3.1.7
