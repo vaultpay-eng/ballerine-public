@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: ballerine-back-office
+    name: backoffice
     env: docker
     dockerfilePath: ./apps/backoffice-v2/Dockerfile
     dockerContext: ./apps/backoffice-v2
@@ -11,7 +11,7 @@ services:
         value: 80
 
   - type: web
-    name: ballerine-kyb-app
+    name: kyb-app
     env: docker
     dockerfilePath: ./apps/kyb-app/Dockerfile
     dockerContext: ./apps/kyb-app
@@ -26,7 +26,7 @@ services:
         value: kyb_parent_kyc_session_example
 
   - type: web
-    name: ballerine-workflow-service
+    name: workflow-service
     env: docker
     image: ghcr.io/ballerine-io/workflows-service:latest
     disk:
@@ -86,7 +86,7 @@ services:
         sync: false
 
   - type: web
-    name: ballerine-workflows-dashboard
+    name: workflows-dashboard
     env: docker
     dockerfilePath: ./apps/workflows-dashboard/Dockerfile
     dockerContext: ./apps/workflows-dashboard
