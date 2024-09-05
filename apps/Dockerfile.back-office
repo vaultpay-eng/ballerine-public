@@ -8,7 +8,7 @@ RUN rm -f .env
 
 # Create a new .env file and populate it with environment variables
 RUN echo "PORT=80" >> .env && \
-    echo "VITE_API_URL=https://ballerine-workflow-service.onrender.com/api/v1/internal" >> .env && \
+    echo "VITE_API_URL=https://backoffice.vaultpay.io/api/v1/internal" >> .env && \
     echo "VITE_API_KEY=secret" >> .env && \
     echo "VITE_AUTH_ENABLED=true" >> .env && \
     echo "VITE_MOCK_SERVER=false" >> .env && \

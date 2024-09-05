@@ -36,7 +36,7 @@ const devOrigins = [
   /^http:\/\/localhost:\d+$/,
   'api-dev.eu.ballerine.io',
   'api-dev.ballerine.io',
-  'https://ballerine-workflow-service.onrender.com',
+  'https://backoffice.vaultpay.io',
   'https://ballerine-back-office.onrender.com',
 ];
 
@@ -47,7 +47,7 @@ const corsOrigins = [
   ...(env.KYC_EXAMPLE_CORS_ORIGIN ?? []),
   'api-sb.eu.ballerine.app',
   'api-sb.ballerine.app',
-  'https://ballerine-workflow-service.onrender.com',
+  'https://backoffice.vaultpay.io',
   'https://ballerine-back-office.onrender.com',
   /\.ballerine\.app$/,
   ...(env.ENVIRONMENT_NAME !== 'production' ? devOrigins : []),
@@ -90,7 +90,7 @@ const main = async () => {
             'https://api-sb.ballerine.app',
             'https://api-sb.eu.ballerine.app',
             'https://api-dev.eu.ballerine.io',
-            'https://ballerine-workflow-service.onrender.com',
+            'https://backoffice.vaultpay.io',
             'https://ballerine-back-office.onrender.com',
           ],
         },
@@ -106,7 +106,7 @@ const main = async () => {
       keys: [env.SESSION_SECRET],
       httpOnly: env.ENVIRONMENT_NAME === 'production',
       secure: false,
-      sameSite: 'none', //env.ENVIRONMENT_NAME === 'production' ? 'strict' : 'none',
+      sameSite: env.ENVIRONMENT_NAME === 'production' ? 'strict' : 'none',
       maxAge: 1000 * 60 * env.SESSION_EXPIRATION_IN_MINUTES,
     }),
   );
