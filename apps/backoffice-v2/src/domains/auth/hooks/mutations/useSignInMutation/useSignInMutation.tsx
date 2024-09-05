@@ -20,6 +20,7 @@ export const useSignInMutation = () => {
       void queryClient.cancelQueries();
     },
     onSuccess: (data, { callbackUrl, redirect }) => {
+      console.log('1. useSignInMutation onSuccess Data:', JSON.stringify(data, null, 2));
       queryClient.setQueryData(getSession.queryKey, data);
 
       if (!callbackUrl || !redirect) return;

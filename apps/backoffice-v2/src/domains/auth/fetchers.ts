@@ -78,15 +78,15 @@ export const fetchAuthenticatedUser = async () => {
   try {
     console.log(
       'fetchAuthenticatedUser auth/session Session Information:',
-      JSON.stringify(testSession, null, 2),
+      JSON.stringify(session, null, 2),
     );
-    posthog.identify(testSession?.user?.id, {
-      email: testSession?.user?.email,
-      name: testSession?.user?.lastName,
+    posthog.identify(session?.user?.id, {
+      email: session?.user?.email,
+      name: session?.user?.lastName,
     });
   } catch (error) {
     console.error('Error identifying user in PostHog:', error);
   }
 
-  return handleZodError(error, testSession);
+  return handleZodError(error, session);
 };
