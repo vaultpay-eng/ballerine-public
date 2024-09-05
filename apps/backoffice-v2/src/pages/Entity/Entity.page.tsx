@@ -14,10 +14,11 @@ export const Entity = () => {
         id={workflow?.id}
         fullName={selectedEntity?.name}
         avatarUrl={selectedEntity?.avatarUrl}
-        showResolutionButtons={
-          workflow?.workflowDefinition?.config?.workflowLevelResolution ??
-          workflow?.context?.entity?.type === 'business'
-        }
+        showResolutionButtons={true}
+        // {
+        //   workflow?.workflowDefinition?.config?.workflowLevelResolution ??
+        //   ['business', 'individual'].includes(workflow?.context?.entity?.type)
+        // }
         workflow={workflow as TWorkflowById}
       />
       <Case.Content key={selectedEntity?.id}>

@@ -29,7 +29,7 @@ export const getVariantTabs = (
       },
       {
         name: Tab.COMPANY_INFORMATION,
-        displayName: 'Company Information',
+        displayName: 'Personal Information',
         disabled: !tabBlocks[Tab.COMPANY_INFORMATION]?.length,
       },
       {
@@ -47,16 +47,16 @@ export const getVariantTabs = (
         displayName: 'UBOs',
         disabled: !tabBlocks[Tab.UBOS]?.length,
       },
-      {
-        name: Tab.ASSOCIATED_COMPANIES,
-        displayName: 'Associated Companies',
-        disabled: !tabBlocks[Tab.ASSOCIATED_COMPANIES]?.length,
-      },
-      {
-        name: Tab.DIRECTORS,
-        displayName: 'Directors',
-        disabled: !tabBlocks[Tab.DIRECTORS]?.length,
-      },
+      // {
+      //   name: Tab.ASSOCIATED_COMPANIES,
+      //   displayName: 'Associated Companies',
+      //   disabled: !tabBlocks[Tab.ASSOCIATED_COMPANIES]?.length,
+      // },
+      // {
+      //   name: Tab.DIRECTORS,
+      //   displayName: 'Directors',
+      //   disabled: !tabBlocks[Tab.DIRECTORS]?.length,
+      // },
       {
         name: Tab.MONITORING_REPORTS,
         displayName: 'Monitoring Reports',
