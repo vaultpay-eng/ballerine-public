@@ -14,14 +14,14 @@ RUN rm -f .env
 
 # Create a new .env file and populate it with environment variables
 RUN echo "PORT=80" >> .env && \
-    echo "VITE_API_URL=http://ballerine.vaultpay.io:3000/api/v1/internal" >> .env && \
+    echo "VITE_API_URL=https://ballerine.vaultpay.io/api/v1/internal" >> .env && \
     echo "VITE_API_KEY=secret" >> .env && \
     echo "VITE_AUTH_ENABLED=true" >> .env && \
     echo "VITE_MOCK_SERVER=false" >> .env && \
     echo "VITE_POLLING_INTERVAL=10" >> .env && \
     echo "VITE_ASSIGNMENT_POLLING_INTERVAL=5" >> .env && \
     echo "VITE_FETCH_SIGNED_URL=false" >> .env && \
-    echo "VITE_ENVIRONMENT_NAME=development" >> .env
+    echo "VITE_ENVIRONMENT_NAME=production" >> .env
 
 ENV NODE_OPTIONS="--max-old-space-size=8192"
 
