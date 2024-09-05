@@ -19,9 +19,11 @@ export const getDocumentsSchemas = (
     .concat(getDocumentsByCountry(issuerCountryCode))
     .reduce((unique: TDocument[], item: TDocument) => {
       const isDuplicate = unique.some(u => u.type === item.type && u.category === item.category);
+
       if (!isDuplicate) {
         unique.push(item);
       }
+
       return unique;
     }, [] as TDocument[])
     .filter((documentSchema: TDocument) => {

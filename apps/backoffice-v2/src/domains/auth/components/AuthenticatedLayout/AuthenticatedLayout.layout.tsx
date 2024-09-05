@@ -8,9 +8,15 @@ export const AuthenticatedLayout: FunctionComponent = () => {
   const { shouldRedirect, isLoading, redirectUnauthenticatedTo, location } =
     useAuthenticatedLayoutLogic();
 
+  console.log(
+    `AuthenticatedLayout: shouldRedirect: ${shouldRedirect}, isLoading: ${isLoading}, redirectUnauthenticatedTo: ${redirectUnauthenticatedTo}, location: ${location}`,
+  );
+
   if (isLoading) return <FullScreenLoader />;
 
   if (shouldRedirect) {
+    console.log('Redirecting to:', redirectUnauthenticatedTo);
+
     return (
       <Navigate
         to={redirectUnauthenticatedTo}

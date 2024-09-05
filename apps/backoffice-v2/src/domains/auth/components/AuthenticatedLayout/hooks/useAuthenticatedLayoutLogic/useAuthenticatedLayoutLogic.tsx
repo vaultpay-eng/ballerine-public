@@ -20,6 +20,16 @@ export const useAuthenticatedLayoutLogic = () => {
     [isLoading, isAuthenticated, redirectUnauthenticatedTo],
   );
 
+  // const shouldRedirect = useMemo(
+  //   () =>
+  //     !isLoading &&
+  //     !isAuthenticated &&
+  //     !!redirectUnauthenticatedTo &&
+  //     env.VITE_AUTH_ENABLED &&
+  //     !userData,
+  //   [isLoading, isAuthenticated, redirectUnauthenticatedTo, userData],
+  // );
+
   return {
     shouldRedirect,
     isLoading,

@@ -24,7 +24,7 @@ export const useCaseCallToActionLegacyLogic = ({
   const revisionReasons =
     childWorkflowContextSchema?.schema?.properties?.documents?.items?.properties?.decision?.properties?.revisionReason?.anyOf?.find(
       ({ enum: enum_ }) => !!enum_,
-    )?.enum as Array<string>;
+    )?.enum as string[];
 
   const noReasons = !revisionReasons?.length;
   const [reason, setReason] = useState(revisionReasons?.[0] ?? '');

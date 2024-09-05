@@ -13,4 +13,5 @@ export const AvatarImage = forwardRef<
     {...props}
   />
 ));
+
 AvatarImage.displayName = AvatarPrimitive.Image.displayName;
