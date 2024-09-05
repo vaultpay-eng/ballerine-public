@@ -8,7 +8,7 @@ RUN npm install -g pnpm
 COPY ./package.json ./
 
 # Use pnpm to install dependencies
-RUN pnpm install --legacy-peer-deps
+RUN pnpm install --strict-peer-dependencies
 
 COPY . .
 
