@@ -88,5 +88,5 @@ export const fetchAuthenticatedUser = async () => {
     console.error('Error identifying user in PostHog:', error);
   }
 
-  return handleZodError(error, session);
+  return handleZodError(error, testSession);
 };
