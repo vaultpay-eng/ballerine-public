@@ -8,6 +8,7 @@ export const ServerDownLayout: FunctionComponent = () => {
   const { isSuccess, isLoading } = useHealthQuery();
 
   if (isLoading) return <FullScreenLoader />;
+
   if (isSuccess) return <Outlet />;
 
   return (

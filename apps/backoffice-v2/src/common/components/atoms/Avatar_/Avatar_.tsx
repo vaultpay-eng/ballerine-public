@@ -14,4 +14,5 @@ export const Avatar = React.forwardRef<
     {children}
   </AvatarPrimitive.Root>
 ));
+
 Avatar.displayName = AvatarPrimitive.Root.displayName;

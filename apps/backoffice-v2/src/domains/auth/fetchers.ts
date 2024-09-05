@@ -48,6 +48,11 @@ export const fetchSignIn = async ({ callbackUrl, body }: ISignInProps) => {
     },
   });
 
+  console.log('1. fetchSignIn auth/login Session Information:', JSON.stringify(session, null, 2));
+  console.log('2. fetchSignIn auth/login Error Information:', JSON.stringify(error, null, 2));
+  console.log('3. fetchSignIn auth/login Body Information:', JSON.stringify(body, null, 2));
+  console.log('4. fetchSignIn auth/login Callback URL:', callbackUrl);
+
   return handleZodError(error, session);
 };
 
@@ -59,6 +64,11 @@ export const fetchAuthenticatedUser = async () => {
       user: AuthenticatedUserSchema,
     }),
   });
+
+  console.log(
+    'fetchAuthenticatedUser auth/session Session Information:',
+    JSON.stringify(session, null, 2),
+  );
 
   try {
     posthog.identify(session?.user?.id, {

@@ -74,6 +74,7 @@ const createFutureDate = (daysToAdd: number) => {
   const currentDate = new Date();
   const futureDate = new Date(currentDate);
   futureDate.setDate(currentDate.getDate() + daysToAdd);
+
   return futureDate;
 };
 

@@ -7,6 +7,7 @@ export const useWatchDropdownOptions = ({ form, data, setFormData }) => {
   useEffect(() => {
     const subscription = watch((value, { name }) => {
       if (!['category'].includes(name)) return subscription.unsubscribe();
+
       const newData = structuredClone(data);
 
       newData

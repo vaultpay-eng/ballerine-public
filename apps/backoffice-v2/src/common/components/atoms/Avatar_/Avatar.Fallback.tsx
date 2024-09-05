@@ -17,4 +17,5 @@ export const AvatarFallback = React.forwardRef<
     {children}
   </AvatarPrimitive.Fallback>
 ));
+
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;

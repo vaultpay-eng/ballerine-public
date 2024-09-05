@@ -48,6 +48,7 @@ export const usePendingRevisionEvents = (
       mutateRevisionCase({ workflowId: pendingWorkflowEvent!.workflowId });
 
       const isKybExampleVariant = checkIsKybExampleVariant(workflow.workflowDefinition);
+
       if (!isKybExampleVariant) return;
 
       window.open(
