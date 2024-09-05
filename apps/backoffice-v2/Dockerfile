@@ -2,18 +2,13 @@ FROM node:18.17.1-bullseye-slim as dev
 
 WORKDIR /app
 
-# Install pnpm globally
-RUN npm install -g pnpm
+COPY ./package.json .
 
-COPY ./package.json ./
-
-# Use pnpm to install dependencies
-RUN pnpm install --strict-peer-dependencies
+RUN npm install --legacy-peer-deps
 
 COPY . .
 
 # RUN mv /app/.env.example /app/.env
-
 # Remove any existing .env file
 RUN rm -f .env
 
@@ -30,13 +25,13 @@ RUN echo "PORT=80" >> .env && \
 
 ENV NODE_OPTIONS="--max-old-space-size=8192"
 
-RUN pnpm run build
+RUN npm run build
 
 ENV PATH="$PATH:/app/node_modules/.bin"
 
 EXPOSE 5137
 
-CMD ["pnpm", "run", "dev", "--host"]
+CMD ["npm", "run", "dev", "--host"]
 
 FROM nginx:stable-alpine as prod
 
