@@ -36,6 +36,12 @@ const devOrigins = [
   /^http:\/\/localhost:\d+$/,
   'api-dev.eu.ballerine.io',
   'api-dev.ballerine.io',
+  'https://ballerine-workflow-service.onrender.com',
+  'https://ballerine-back-office.onrender.com',
+  ...env.BACKOFFICE_CORS_ORIGIN,
+  ...env.WORKFLOW_DASHBOARD_CORS_ORIGIN,
+  ...env.KYB_EXAMPLE_CORS_ORIGIN,
+  ...(env.KYC_EXAMPLE_CORS_ORIGIN ?? []),
 ];
 
 const corsOrigins = [
@@ -43,6 +49,8 @@ const corsOrigins = [
   ...env.WORKFLOW_DASHBOARD_CORS_ORIGIN,
   ...env.KYB_EXAMPLE_CORS_ORIGIN,
   ...(env.KYC_EXAMPLE_CORS_ORIGIN ?? []),
+  'https://ballerine-back-office.onrender.com',
+  'https://ballerine-workflow-service.onrender.com',
   'api-sb.eu.ballerine.app',
   'api-sb.ballerine.app',
   /\.ballerine\.app$/,
@@ -82,6 +90,8 @@ const main = async () => {
           defaultSrc: ["'self'"],
           connectSrc: [
             "'self'",
+            'https://ballerine-workflow-service.onrender.com',
+            'https://ballerine-back-office.onrender.com',
             'https://api-dev.ballerine.io',
             'https://api-sb.ballerine.app',
             'https://api-sb.eu.ballerine.app',
@@ -98,9 +108,12 @@ const main = async () => {
     cookieSession({
       name: 'session',
       keys: [env.SESSION_SECRET],
-      httpOnly: env.ENVIRONMENT_NAME === 'production',
+      httpOnly: env.ENVIRONMENT_NAME === 'production' || env.ENVIRONMENT_NAME === 'development',
       secure: false,
-      sameSite: env.ENVIRONMENT_NAME === 'production' ? 'strict' : false,
+      sameSite:
+        env.ENVIRONMENT_NAME === 'production' || env.ENVIRONMENT_NAME === 'development'
+          ? 'strict'
+          : false,
       maxAge: 1000 * 60 * env.SESSION_EXPIRATION_IN_MINUTES,
     }),
   );
