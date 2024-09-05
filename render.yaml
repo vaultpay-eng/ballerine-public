@@ -78,11 +78,8 @@ services:
   - type: web
     name: ballerine-workflow-service
     runtime: docker
-    dockerfilePath: ./services/workflow-service/Dockerfile
-    dockerContext: ./services/workflow-service/
-    buildCommand: docker build
-    # dockerfilePath: ./Dockerfile.workflow-service
-    # dockerContext: .
+    dockerfilePath: ./Dockerfile.workflow-service
+    dockerContext: .
     plan: starter
     region: ohio
     envVars:
