@@ -47,6 +47,8 @@ const corsOrigins = [
   ...(env.KYC_EXAMPLE_CORS_ORIGIN ?? []),
   'api-sb.eu.ballerine.app',
   'api-sb.ballerine.app',
+  'https://ballerine-workflow-service.onrender.com',
+  'https://ballerine-back-office.onrender.com',
   /\.ballerine\.app$/,
   ...(env.ENVIRONMENT_NAME !== 'production' ? devOrigins : []),
 ];
@@ -102,9 +104,9 @@ const main = async () => {
     cookieSession({
       name: 'session',
       keys: [env.SESSION_SECRET],
-      httpOnly: true, //env.ENVIRONMENT_NAME === 'production',
+      httpOnly: env.ENVIRONMENT_NAME === 'production',
       secure: false,
-      sameSite: 'strict', //env.ENVIRONMENT_NAME === 'production' ? 'strict' : false,
+      sameSite: env.ENVIRONMENT_NAME === 'production' ? 'strict' : false,
       maxAge: 1000 * 60 * env.SESSION_EXPIRATION_IN_MINUTES,
     }),
   );
