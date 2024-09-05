@@ -6,7 +6,6 @@ WORKDIR /app
 RUN npm install -g pnpm
 
 COPY ./package.json ./
-COPY ./pnpm-lock.yaml ./
 
 # Use pnpm to install dependencies
 RUN pnpm install --legacy-peer-deps
