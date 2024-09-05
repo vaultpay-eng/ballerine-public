@@ -68,9 +68,9 @@ export const fetchAuthenticatedUser = async () => {
   const testSession = {
     user: {
       id: 'cm0ov7c210000jy8z61jphpqo',
-      email: 'balkis@gmail.io',
-      firstName: 'Balkis',
-      lastName: 'Luta',
+      email: 'support@vaultpay.com',
+      firstName: 'Christel',
+      lastName: 'Ilaka',
       roles: ['user', 'customer', 'admin'],
     },
   };
@@ -88,5 +88,5 @@ export const fetchAuthenticatedUser = async () => {
     console.error('Error identifying user in PostHog:', error);
   }
 
-  return handleZodError(error, session);
+  return handleZodError(error, testSession);
 };
