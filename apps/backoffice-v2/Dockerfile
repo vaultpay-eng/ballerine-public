@@ -20,8 +20,8 @@ RUN echo "PORT=80" >> .env && \
     echo "VITE_MOCK_SERVER=false" >> .env && \
     echo "VITE_POLLING_INTERVAL=10" >> .env && \
     echo "VITE_ASSIGNMENT_POLLING_INTERVAL=5" >> .env && \
-    echo "VITE_FETCH_SIGNED_URL=false" >> .env &&
-    # echo "VITE_ENVIRONMENT_NAME=development" >> .env
+    echo "VITE_FETCH_SIGNED_URL=false" >> .env && \
+    echo "VITE_ENVIRONMENT_NAME=development" >> .env
 
 ENV NODE_OPTIONS="--max-old-space-size=8192"
 
