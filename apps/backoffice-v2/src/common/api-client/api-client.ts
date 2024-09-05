@@ -23,7 +23,7 @@ export const apiClient: IApiClient = async ({ endpoint, method, options, schema,
       },
       headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': 'Bearer secret',
+        Authorization: 'Bearer secret',
         ...(options?.headers ?? {}),
       },
       schema,

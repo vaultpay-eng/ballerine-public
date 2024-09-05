@@ -21,6 +21,7 @@ RUN echo "PORT=3000" >> .env && \
     echo "DB_USER=admin" >> .env && \
     echo "DB_PASSWORD=admin" >> .env && \
     echo "DB_PORT=5432" >> .env && \
+    echo "ADMIN_API_KEY=admin_secret" >>  .env && \
     echo "API_KEY=secret" >> .env && \
     echo "NODE_ENV=development" >> .env && \
     echo "COMPOSE_PROJECT_NAME=ballerine-x" >> .env && \

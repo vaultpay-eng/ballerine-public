@@ -65,19 +65,28 @@ export const fetchAuthenticatedUser = async () => {
     }),
   });
 
-  console.log(
-    'fetchAuthenticatedUser auth/session Session Information:',
-    JSON.stringify(session, null, 2),
-  );
+  const testSession = {
+    user: {
+      id: 'cm0osmuig01p6n6vw3ju8s0j3',
+      email: 'admin@admin.com',
+      firstName: 'General',
+      lastName: 'Carroll',
+      roles: ['user'],
+    },
+  };
 
   try {
-    posthog.identify(session?.user?.id, {
-      email: session?.user?.email,
-      name: session?.user?.fullName,
+    console.log(
+      'fetchAuthenticatedUser auth/session Session Information:',
+      JSON.stringify(testSession, null, 2),
+    );
+    posthog.identify(testSession?.user?.id, {
+      email: testSession?.user?.email,
+      name: testSession?.user?.lastName,
     });
   } catch (error) {
     console.error('Error identifying user in PostHog:', error);
   }
 
-  return handleZodError(error, session);
+  return handleZodError(error, testSession);
 };

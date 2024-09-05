@@ -18,7 +18,7 @@ export const fetcher: IFetcher = async ({
   timeout = 10000,
   schema,
   isBlob = false,
-  isFormData = true,
+  isFormData = false,
 }) => {
   const controller = new AbortController();
   const { signal } = controller;
