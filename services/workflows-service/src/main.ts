@@ -36,8 +36,8 @@ const devOrigins = [
   /^http:\/\/localhost:\d+$/,
   'api-dev.eu.ballerine.io',
   'api-dev.ballerine.io',
-  'https://backoffice.vaultpay.io',
-  'https://ballerine-back-office.onrender.com',
+  'backoffice.vaultpay.io',
+  'ballerine-back-office.onrender.com',
 ];
 
 const corsOrigins = [
@@ -47,8 +47,8 @@ const corsOrigins = [
   ...(env.KYC_EXAMPLE_CORS_ORIGIN ?? []),
   'api-sb.eu.ballerine.app',
   'api-sb.ballerine.app',
-  'https://backoffice.vaultpay.io',
-  'https://ballerine-back-office.onrender.com',
+  'backoffice.vaultpay.io',
+  'ballerine-back-office.onrender.com',
   /\.ballerine\.app$/,
   ...(env.ENVIRONMENT_NAME !== 'production' ? devOrigins : []),
 ];
