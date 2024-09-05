@@ -67,11 +67,11 @@ export const fetchAuthenticatedUser = async () => {
 
   const testSession = {
     user: {
-      id: 'cm0osmuig01p6n6vw3ju8s0j3',
-      email: 'admin@admin.com',
-      firstName: 'General',
-      lastName: 'Carroll',
-      roles: ['user'],
+      id: 'cm0ov7c210000jy8z61jphpqo',
+      email: 'balkis@gmail.io',
+      firstName: 'Balkis',
+      lastName: 'Luta',
+      roles: ['user', 'customer', 'admin'],
     },
   };
 

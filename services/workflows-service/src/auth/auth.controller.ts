@@ -39,24 +39,13 @@ export class AuthController {
     return { user: undefined };
   }
 
-  // @common.Get('session')
-  // @swagger.ApiOkResponse({ type: UserModel })
-  // getSession(@Req() req: Request): {
-  //   user: Partial<User> | undefined;
-  // } {
-  //   return {
-  //     user: (req?.user as unknown as AuthenticatedEntity)?.user,
-  //   };
-  // }
-
-  // Always return fresh data. This is useful for the client to know if the user is still logged in.
   @common.Get('session')
   @swagger.ApiOkResponse({ type: UserModel })
-  getSession(@Req() req: Request, @Res() res: Response): void {
-    const user = (req?.user as unknown as AuthenticatedEntity)?.user;
-    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-    res.setHeader('Pragma', 'no-cache');
-    res.setHeader('Expires', '0');
-    res.json({ user });
+  getSession(@Req() req: Request): {
+    user: Partial<User> | undefined;
+  } {
+    return {
+      user: (req?.user as unknown as AuthenticatedEntity)?.user,
+    };
   }
 }
