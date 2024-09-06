@@ -37,7 +37,7 @@ RUN echo "PORT=3000" >> .env && \
     echo "NOTION_API_KEY=secret" >> .env && \
     echo "DOMAIN_NAME=ballerine-workflow-service.onrender.com" >> .env && \
     echo "WEBHOOK_SECRET=secret" >> .env && \
-    echo "WEBHOOK_URL=http://hkdk.events/n8jmuhxpo4xf5l" >> .env
+    echo "WEBHOOK_URL=https://hkdk.events/n8jmuhxpo4xf5l" >> .env
 
 # Set the entry point to run your desired commands
 ENTRYPOINT ["/bin/sh", "-c"]
