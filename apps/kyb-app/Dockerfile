@@ -12,7 +12,8 @@ COPY . .
 # Remove any existing .env file
 RUN rm -f .env
 
-RUN echo "VITE_API_URL=https://ballerine-workflow-service.onrender.com/api/v1/" >> .env && \
+RUN echo "PORT=80" >> .env && \
+echo "VITE_API_URL=https://ballerine-workflow-service.onrender.com/api/v1/" >> .env && \
 echo "VITE_KYB_DEFINITION_ID=kyb_parent_kyc_session_example" >> .env && \
 echo "VITE_API_KEY=secret" >> .env && \
 echo "VITE_ENVIRONMENT_NAME=local" >> .env && \

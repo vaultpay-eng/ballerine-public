@@ -11,7 +11,8 @@ COPY . .
 # RUN mv /app/.env.example /app/.env
 RUN rm -f .env
 
-RUN echo "VITE_API_URL=https://ballerine-workflow-service.onrender.com/api/v1/" >> .env && \
+RUN echo "PORT=80" >> .env && \
+    echo "VITE_API_URL=https://ballerine-workflow-service.onrender.com/api/v1/" >> .env && \
     echo "MODE=development" >> .env && \
     echo "VITE_IMAGE_LOGO_URL=https://raw.githubusercontent.com/vault-pay/logo/main/vaultpay-logo-1200.svg" >> .env && \
     echo "VITE_ENVIRONMENT_NAME=local" >> .env && \
