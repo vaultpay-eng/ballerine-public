@@ -8,7 +8,19 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
-RUN mv /app/.env.example /app/.env
+# RUN mv /app/.env.example /app/.env
+# Remove any existing .env file
+RUN rm -f .env
+
+RUN echo "VITE_API_URL=https://ballerine-workflow-service.onrender.com/api/v1/" >> .env && \
+echo "VITE_KYB_DEFINITION_ID=kyb_parent_kyc_session_example" >> .env && \
+echo "VITE_API_KEY=secret" >> .env && \
+echo "VITE_ENVIRONMENT_NAME=local" >> .env && \
+echo "VITE_DEFAULT_EXAMPLE_TOKEN=12345678-1234-1234-1234-123456789012" >> .env && \
+echo "VITE_SENTRY_AUTH_TOKEN=" >> .env && \
+echo "VITE_SENTRY_DSN=" >> .env && \
+echo "VITE_IMAGE_LOGO_URL=https://raw.githubusercontent.com/vault-pay/logo/main/vaultpay-logo-1200.svg" >> .env
+
 RUN npm run build
 
 ENV PATH="$PATH:./node_modules/.bin"
