@@ -41,4 +41,4 @@ RUN echo "PORT=3000" >> .env && \
 
 # Set the entry point to run your desired commands
 ENTRYPOINT ["/bin/sh", "-c"]
-CMD ["npm run db:clean && npm run db:reset && npm run seed && dumb-init npm run prod"]
+CMD ["npm run db:clean && npm run db:init && npm run seed && dumb-init npm run prod"]

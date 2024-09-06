@@ -19,6 +19,7 @@ export const useSignOutMutation = () => {
       void queryClient.cancelQueries();
     },
     onSuccess: (data, { callbackUrl, redirect }) => {
+      window.sessionStorage.removeItem('authData');
       queryClient.setQueryData(authenticatedUser.queryKey, {
         user: undefined,
       });

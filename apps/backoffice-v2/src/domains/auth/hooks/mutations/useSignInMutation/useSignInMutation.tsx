@@ -21,6 +21,13 @@ export const useSignInMutation = () => {
     },
     onSuccess: (data, { callbackUrl, redirect }) => {
       console.log('1. useSignInMutation onSuccess Data:', JSON.stringify(data, null, 2));
+
+      try {
+        window.sessionStorage.setItem('authData', JSON.stringify(data));
+      } catch (error) {
+        console.error('Failed to store auth data in local storage:', error);
+        // Optionally, you could handle this error more gracefully
+      }
       queryClient.setQueryData(getSession.queryKey, data);
 
       if (!callbackUrl || !redirect) return;

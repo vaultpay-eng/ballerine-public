@@ -65,28 +65,31 @@ export const fetchAuthenticatedUser = async () => {
     }),
   });
 
-  const testSession = {
-    user: {
-      id: 'cm0ov7c210000jy8z61jphpqo',
-      email: 'support@vaultpay.com',
-      firstName: 'Christel',
-      lastName: 'Ilaka',
-      roles: ['user', 'customer', 'admin'],
-    },
-  };
+  if (!session?.user) {
+    try {
+      const storedAuthData = window.sessionStorage.getItem('authData');
+      if (storedAuthData) {
+        const parsedAuthData = JSON.parse(storedAuthData);
+        if (parsedAuthData.user) {
+          if (session) {
+            session.user = parsedAuthData.user;
+            return session;
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Failed to retrieve auth data from local storage:', error);
+    }
+  }
 
   try {
-    console.log(
-      'fetchAuthenticatedUser auth/session Session Information:',
-      JSON.stringify(session, null, 2),
-    );
-    posthog.identify(testSession?.user?.id, {
-      email: testSession?.user?.email,
-      name: testSession?.user?.lastName,
+    posthog.identify(session?.user?.id, {
+      email: session?.user?.email,
+      name: session?.user?.lastName,
     });
   } catch (error) {
     console.error('Error identifying user in PostHog:', error);
   }
 
-  return handleZodError(error, testSession);
+  return handleZodError(error, session);
 };
