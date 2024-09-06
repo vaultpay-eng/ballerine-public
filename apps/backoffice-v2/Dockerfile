@@ -13,7 +13,7 @@ COPY . .
 RUN rm -f .env
 
 # Create a new .env file and populate it with environment variables
-RUN echo "PORT=5137" >> .env && \
+RUN echo "PORT=80" >> .env && \
     echo "VITE_API_URL=http://ballerine-workflow-service.onrender.com:3000/api/v1/internal" >> .env && \
     echo "VITE_API_KEY=secret" >> .env && \
     echo "VITE_AUTH_ENABLED=true" >> .env && \
