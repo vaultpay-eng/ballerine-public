@@ -3,11 +3,11 @@ import { StateTag, TDocument } from '@ballerine/common';
 import { calculateWorkflowRevisionableEvent } from '@/pages/Entity/components/Case/hooks/usePendingRevisionEvents/utils/calculate-workflow-revisionable-event';
 import { IPendingEvent } from '@/pages/Entity/components/Case/hooks/usePendingRevisionEvents/interfaces';
 
-export const calculatePendingWorkflowEvents = (workflow: TWorkflowById): Array<IPendingEvent> => {
+export const calculatePendingWorkflowEvents = (workflow: TWorkflowById): IPendingEvent[] => {
   return [
     ...workflow.context.documents,
     ...(workflow.context.entity?.data?.additionalInfo?.directors?.flatMap(
-      (director: { additionalInfo: { documents: Array<TDocument> } }) =>
+      (director: { additionalInfo: { documents: TDocument[] } }) =>
         director?.additionalInfo?.documents,
     ) || []),
   ]

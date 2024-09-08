@@ -5,6 +5,7 @@
  */
 export const stringifyNullAndEmptyArrayDeep = (value: unknown) => {
   if (Array.isArray(value) && !value.length) return '__emptyArray';
+
   if (value === null) return '__null';
 
   if (Array.isArray(value)) return value.map(stringifyNullAndEmptyArrayDeep);

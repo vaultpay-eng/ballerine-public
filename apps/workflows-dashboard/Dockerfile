@@ -8,7 +8,17 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
-RUN mv /app/.env.example /app/.env
+# RUN mv /app/.env.example /app/.env
+RUN rm -f .env
+
+RUN echo "PORT=80" >> .env && \
+    echo "WORKFLOW_DASHBOARD_PORT=5200" >> .env && \
+    echo "VITE_API_URL=https://ballerine-workflow-service.onrender.com/api/v1/" >> .env && \
+    echo "MODE=development" >> .env && \
+    echo "VITE_IMAGE_LOGO_URL=https://raw.githubusercontent.com/vault-pay/logo/main/vaultpay-logo-1200.svg" >> .env && \
+    echo "VITE_ENVIRONMENT_NAME=local" >> .env && \
+    echo "VITE_API_KEY=secret" >> .env
+
 RUN npm run build
 
 ENV PATH="$PATH:./node_modules/.bin"

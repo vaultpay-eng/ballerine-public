@@ -3,7 +3,7 @@ import { TCheckboxGroupState } from './types';
 import { FunctionComponentWithChildren } from '../../../types';
 
 export interface IProviderProps {
-  values: Array<unknown>;
+  values: unknown[];
   onChange: (value: unknown) => void;
 }
 

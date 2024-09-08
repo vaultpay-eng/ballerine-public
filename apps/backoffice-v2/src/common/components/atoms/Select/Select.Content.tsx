@@ -19,4 +19,5 @@ export const SelectContent = React.forwardRef<
     </SelectPrimitive.Content>
   </SelectPrimitive.Portal>
 ));
+
 SelectContent.displayName = SelectPrimitive.Content.displayName;

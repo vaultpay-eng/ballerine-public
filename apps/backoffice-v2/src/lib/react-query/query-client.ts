@@ -33,6 +33,7 @@ export const queryClient = new QueryClient({
   },
   queryCache: new QueryCache({
     onError: error => {
+      console.log('QueryCache onError', error);
       if (isZodError(error)) {
         return;
       }

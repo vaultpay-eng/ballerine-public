@@ -1,0 +1,176 @@
+services:
+  - type: web
+    name: ballerine-back-office
+    runtime: docker
+    region: ohio
+    dockerfilePath: ./apps/backoffice-v2/Dockerfile
+    dockerContext: ./apps/backoffice-v2
+    buildCommand: docker build
+    plan: starter
+    envVars:
+      - key: PORT
+        value: 80
+      - key: VITE_API_URL
+        value: http://ballerine-workflow-service.onrender.com/api/v1/
+      - key: VITE_API_KEY
+        value: secret
+      - key: VITE_AUTH_ENABLED
+        sync: false
+      - key: VITE_MOCK_SERVER
+        sync: false
+      - key: VITE_FETCH_SIGNED_URL
+        sync: false
+      - key: VITE_ENVIRONMENT_NAME
+        value: development
+      - key: VITE_KYB_DEFINITION_ID
+        value: kyb_parent_kyc_session_example
+
+  - type: web
+    name: ballerine-kyb-app
+    runtime: docker
+    region: ohio
+    dockerfilePath: ./apps/kyb-app/Dockerfile
+    dockerContext: ./apps/kyb-app
+    buildCommand: docker build --build-arg NPM_LOG_LEVEL=notice .
+    plan: starter
+    envVars:
+      - key: PORT
+        value: 80
+      - key: VITE_API_URL
+        value: http://ballerine-workflow-service.onrender.com/api/v1/
+      - key: VITE_API_KEY
+        value: secret
+      - key: VITE_KYB_API_URL
+        value: http://ballerine-workflow-service.onrender.com/api/v1/
+      - key: VITE_KYB_DEFINITION_ID
+        value: kyb_parent_kyc_session_example
+      - key: VITE_AUTH_ENABLED
+        sync: false
+      - key: VITE_MOCK_SERVER
+        sync: false
+      - key: VITE_FETCH_SIGNED_URL
+        sync: false
+      - key: VITE_ENVIRONMENT_NAME
+        value: local
+
+  - type: web
+    name: ballerine-workflows-dashboard
+    runtime: docker
+    region: ohio
+    dockerfilePath: ./apps/workflows-dashboard/Dockerfile
+    dockerContext: ./apps/workflows-dashboard
+    buildCommand: docker build --build-arg NPM_LOG_LEVEL=notice .
+    plan: starter
+    envVars:
+      - key: PORT
+        value: 80
+      - key: VITE_API_URL
+        value: http://ballerine-workflow-service.onrender.com/api/v1/
+      - key: VITE_AUTH_ENABLED
+        sync: false
+      - key: VITE_MOCK_SERVER
+        sync: false
+      - key: VITE_FETCH_SIGNED_URL
+        sync: false
+      - key: VITE_ENVIRONMENT_NAME
+        value: local
+
+  - type: web
+    name: ballerine-workflow-service
+    runtime: docker
+    dockerfilePath: ./Dockerfile.workflow-service
+    dockerContext: .
+    plan: starter
+    region: ohio
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: BACKOFFICE_PORT
+        value: 5137
+      - key: WORKFLOW_DASHBOARD_PORT
+        value: 5200
+      - key: KYB_APP_PORT
+        value: 5201
+      - key: BACKOFFICE_CORS_ORIGIN
+        value: https://ballerine-back-office.onrender.com
+      - key: WORKFLOW_DASHBOARD_CORS_ORIGIN
+        value: https://ballerine-workflows-dashboard.onrender.com
+      - key: KYB_EXAMPLE_CORS_ORIGIN
+        value: https://ballerine-kyb-app.onrender.com
+      - key: APP_API_URL
+        value: https://ballerine-back-office.onrender.com
+      - key: BCRYPT_SALT
+        value: 10
+      - key: SESSION_EXPIRATION_IN_MINUTES
+        value: 60
+      - key: DB_URL
+        value: postgres://admin:admin@ballerine-postgres:5432/postgres
+      - key: DB_USER
+        value: admin
+      - key: DB_PASSWORD
+        value: admin
+      - key: DB_PORT
+        value: 5432
+      - key: API_KEY
+        value: secret
+      - key: NODE_ENV
+        value: development
+      - key: COMPOSE_PROJECT_NAME
+        value: ballerine-x
+      - key: SESSION_SECRET
+        value: secret
+      - key: EMAIL_API_TOKEN
+        value: ''
+      - key: EMAIL_API_URL
+        value: https://api.sendgrid.com/v3/mail/send
+      - key: UNIFIED_API_URL
+        value: https://ballerine-back-office.onrender.com
+      - key: ENVIRONMENT_NAME
+        value: development
+      - key: HASHING_KEY_SECRET
+        value: secret
+      - key: HASHING_KEY_SECRET_BASE64
+        value: JDJiJDEwJEdSUHhqQXQ2aGtYcGQxQ2NNcmxvZnU=
+      - key: NOTION_API_KEY
+        value: secret
+      - key: DOMAIN_NAME
+        value: https://ballerine-back-office.onrender.com
+      - key: VITE_API_URL
+        value: https://ballerine-back-office.onrender.com/api/v1/internal
+      - key: WEBHOOK_SECRET
+        value: secret
+      - key: WEBHOOK_URL
+        value: http://hkdk.events/n8jmuhxpo4xf5l
+
+  - type: web
+    name: ballerine-postgres
+    runtime: image
+    region: ohio
+    image:
+      url: docker.io/sibedge/postgres-plv8:15.3-3.1.7
+    plan: starter
+    envVars:
+      - key: POSTGRES_USER
+        value: admin
+      - key: POSTGRES_PASSWORD
+        value: admin
+      - key: PATH
+        value: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - key: LANG
+        value: en_US.utf8
+      - key: PG_MAJOR
+        value: "15"
+      - key: PG_VERSION
+        value: "15.3"
+      - key: PG_SHA256
+        value: ffc7d4891f00ffbf5c3f4eab7fbbced8460b8c0ee63c5a5167133b9e6599d932
+      - key: DOCKER_PG_LLVM_DEPS
+        value: llvm15-dev clang15
+      - key: PGDATA
+        value: /var/lib/postgresql/data
+      - key: PLV8_VERSION
+        value: "3.1.7"
+      - key: PORT
+        value: "5432"
+
+version: "1"

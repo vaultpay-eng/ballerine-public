@@ -11,6 +11,7 @@ export class AdminKeyMiddleware implements NestMiddleware {
     const authHeader = req.headers.authorization;
     const apiKey = authHeader?.split?.(' ')?.[1];
 
+    // Where we check if the API key is the admin API key
     if (!!apiKey && apiKey == env.ADMIN_API_KEY) {
       const entity = {
         projectIds: ['*'],

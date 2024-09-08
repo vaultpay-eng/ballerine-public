@@ -6,8 +6,10 @@ import { createHmac, createHash } from 'node:crypto';
 export const sign = ({ payload, key }: { payload: unknown; key: string }) => {
   if (!key) {
     console.warn('No key provided for signing');
+
     return 'UNSIGNED';
   }
+
   return createHmac('sha256', key).update(JSON.stringify(payload)).digest('hex');
 };
 
