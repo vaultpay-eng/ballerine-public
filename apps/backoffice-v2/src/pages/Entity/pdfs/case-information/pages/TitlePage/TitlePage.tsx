@@ -20,7 +20,7 @@ export const TitlePage: FunctionComponent<TBaseCaseInformationPdf> = ({
         {/* Powered by section --- end */}
         {/* Company Info section --- start */}
         <View style={tw('flex flex-col items-center justify-center gap-12 pb-12 px-10')}>
-          <Image style={{ width: '100px' }} src={logoUrl} />
+          <Image style={{ width: '100px' }} src={'logoUrl'} />
           <Typography styles={[tw('text-[18px] text-center leading-5')]} weight="bold">
             {companyName}
           </Typography>

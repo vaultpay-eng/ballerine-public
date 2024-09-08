@@ -13,8 +13,10 @@ export function SignIn() {
   const { isLoading: isLoadingSession, isAuthenticated, refresh } = useSession();
   const { isLoading, errorCode, signIn } = useSignInMutation({
     onSuccess: () => {
+      console.log('onSuccess isAuthenticated : ', isAuthenticated);
       refresh();
       const refUrl = getRefererUrl();
+      console.log('onSuccess getRefererUrl : ', refUrl);
       navigate(refUrl || '/');
 
       if (refUrl) {
