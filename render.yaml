@@ -117,7 +117,9 @@ services:
       - key: NOTION_API_KEY
         value: secret
       - key: DOMAIN_NAME
-        value: https://back-office.onrender.com
+        value: https://ballerine-backend.onrender.com
+      - key: KYB_EXAMPLE_CORS_ORIGIN
+        value: https://vaultpay-back-office.onrender.com
 
   - type: web
     name: ballerine-database

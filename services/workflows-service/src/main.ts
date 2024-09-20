@@ -36,6 +36,8 @@ const devOrigins = [
   /^http:\/\/localhost:\d+$/,
   'api-dev.eu.ballerine.io',
   'api-dev.ballerine.io',
+  'ballerine-dashboard.onrender.com',
+  'vaultpay-back-office.onrender.com',
 ];
 
 const corsOrigins = [

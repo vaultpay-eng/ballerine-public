@@ -8,7 +8,21 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
-RUN mv /app/.env.example /app/.env
+# RUN mv /app/.env.example /app/.env
+# Remove any existing .env file
+RUN rm -f .env
+
+# Create a new .env file and populate it with environment variables
+RUN echo "PORT=80" >> .env && \
+    echo "VITE_API_URL=https://ballerine-backend.onrender.com/api/v1/internal" >> .env && \
+    echo "VITE_API_KEY=secret" >> .env && \
+    echo "VITE_AUTH_ENABLED=true" >> .env && \
+    echo "VITE_MOCK_SERVER=false" >> .env && \
+    echo "VITE_POLLING_INTERVAL=10" >> .env && \
+    echo "VITE_ASSIGNMENT_POLLING_INTERVAL=5" >> .env && \
+    echo "VITE_FETCH_SIGNED_URL=false" >> .env && \
+    echo "VITE_IMAGE_LOGO_URL=https://raw.githubusercontent.com/vault-pay/logo/main/vaultpay-logo-1200.svg" >> .env && \
+    echo "VITE_ENVIRONMENT_NAME=local" >> .env
 
 ENV NODE_OPTIONS="--max-old-space-size=8192"
 
