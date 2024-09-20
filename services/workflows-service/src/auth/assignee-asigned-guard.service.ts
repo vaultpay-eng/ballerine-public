@@ -11,6 +11,7 @@ export class WorkflowAssigneeGuard implements CanActivate {
   constructor(private service: WorkflowService, private readonly cls: ClsService) {}
   async canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest<Request>();
+    console.log('request', JSON.stringify(request, null, 2));
     console.log('request.user', JSON.stringify(request.user, null, 2));
     console.log('request.params', JSON.stringify(request.params, null, 2));
     const workflowId = request.params.id;
