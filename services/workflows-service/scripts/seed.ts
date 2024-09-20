@@ -6,7 +6,6 @@ import { hash } from 'bcrypt';
 import { hashKey } from '../src/customer/api-key/utils';
 import { env } from '../src/env';
 import type { InputJsonValue } from '../src/types';
-import { seedTransactionsAlerts } from './alerts/generate-alerts';
 import { generateTransactions } from './alerts/generate-transactions';
 import { customSeed } from './custom-seed';
 import {
@@ -977,18 +976,6 @@ async function seed() {
         }),
       });
     });
-  });
-
-  await seedTransactionsAlerts(client, {
-    project: project1,
-    businessIds: businessRiskIds,
-    counterpartyIds: ids1
-      .map(
-        ({ counterpartyOriginatorId, counterpartyBeneficiaryId }) =>
-          counterpartyOriginatorId || counterpartyBeneficiaryId,
-      )
-      .filter(Boolean) as string[],
-    agentUserIds: agentUsers.map(({ id }) => id),
   });
 
   await client.$transaction(async () =>
