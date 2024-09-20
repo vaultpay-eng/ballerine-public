@@ -9,25 +9,14 @@ export const useRevisionCaseAndDocumentsMutation = ({ workflowId }: { workflowId
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ revisionReason }: { revisionReason: string }) => {
-      let user;
-      const storedAuthData = window.sessionStorage.getItem('authData');
-      if (storedAuthData) {
-        const parsedAuthData = JSON.parse(storedAuthData);
-        if (parsedAuthData.user) {
-          user = parsedAuthData.user;
-        }
-      }
-
-      return fetchWorkflowEventDecision({
+    mutationFn: ({ revisionReason }: { revisionReason: string }) =>
+      fetchWorkflowEventDecision({
         workflowId,
         body: {
           name: Action.REVISION,
           reason: revisionReason,
-          user: user,
         },
-      });
-    },
+      }),
     onSuccess: () => {
       // workflowsQueryKeys._def is the base key for all workflows queries
       void queryClient.invalidateQueries(workflowsQueryKeys._def);

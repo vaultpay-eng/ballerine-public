@@ -15,7 +15,6 @@ export class WorkflowAssigneeGuard implements CanActivate {
     console.log('request.user', JSON.stringify(request.user, null, 2));
     console.log('request.params', JSON.stringify(request.params, null, 2));
     const workflowId = request.params.id;
-    // @ts-expect-error `id` is not defined on `user`
     // const requestingUserId = request.user!.user!.id;
     const requestingUserId = request.body!.reason!.user.id;
     const workflowRuntime = await this.service.getWorkflowRuntimeDataById(
