@@ -12,15 +12,26 @@ export const useRejectTaskByIdMutation = (workflowId: string) => {
   const workflowById = workflowsQueryKeys.byId({ workflowId, filterId });
 
   return useMutation({
-    mutationFn: ({ documentId, reason }: { documentId: string; reason?: string }) =>
-      updateWorkflowDecision({
+    mutationFn: ({ documentId, reason }: { documentId: string; reason?: string }) => {
+      let user;
+      const storedAuthData = window.sessionStorage.getItem('authData');
+      if (storedAuthData) {
+        const parsedAuthData = JSON.parse(storedAuthData);
+        if (parsedAuthData.user) {
+          user = parsedAuthData.user;
+        }
+      }
+
+      return updateWorkflowDecision({
         workflowId,
         documentId,
         body: {
           decision: Action.REJECT,
           reason,
+          user, // Add user to the body
         },
-      }),
+      });
+    },
     onMutate: async ({ documentId, reason }) => {
       await queryClient.cancelQueries({
         queryKey: workflowById.queryKey,

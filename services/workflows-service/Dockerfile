@@ -19,6 +19,7 @@ COPY . .
 # Remove any existing .env file
 RUN rm -f .env
 
+# echo "DB_URL=postgres://admin:admin@ballerine-database:5432/postgres" >> .env && \
 # Create a new .env file and populate it with environment variables
 RUN echo "PORT=3000" >> .env && \
     echo "BACKOFFICE_PORT=5137" >> .env && \
@@ -32,7 +33,7 @@ RUN echo "PORT=3000" >> .env && \
     echo "APP_API_URL=https://alon.ballerine.dev/api" >> .env && \
     echo "BCRYPT_SALT=10" >> .env && \
     echo "SESSION_EXPIRATION_IN_MINUTES=60" >> .env && \
-    echo "DB_URL=postgres://admin:admin@ballerine-database:5432/postgres" >> .env && \
+    echo "DB_URL=postgres://admin:admin@ballerine-postgres:5432/postgres" >> .env && \
     echo "DB_USER=admin" >> .env && \
     echo "DB_PASSWORD=admin" >> .env && \
     echo "DB_PORT=5432" >> .env && \
