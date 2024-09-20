@@ -4,6 +4,7 @@
   "version": "0.7.46",
   "description": "workflow-service",
   "scripts": {
+    "service:init": "node ./scripts/init.js",
     "spellcheck": "cspell \"*\"",
     "setup": "npm run docker:db:down && npm run docker:db && wait-on tcp:5432 && npm run db:reset && npm run seed",
     "format": "prettier --write . '!**/*.{md,hbs}'",
