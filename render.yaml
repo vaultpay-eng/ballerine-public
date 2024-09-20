@@ -15,11 +15,11 @@ services:
       - key: VITE_API_KEY
         value: secret
       - key: VITE_AUTH_ENABLED
-        sync: false
+        value: "false"
       - key: VITE_MOCK_SERVER
-        sync: false
+        value: "false"
       - key: VITE_FETCH_SIGNED_URL
-        sync: false
+        value: "false"
       - key: VITE_ENVIRONMENT_NAME
         value: development
 
@@ -39,9 +39,9 @@ services:
       - key: VITE_API_KEY
         value: secret
       - key: VITE_AUTH_ENABLED
-        sync: true
+        value: "true"
       - key: VITE_MOCK_SERVER
-        sync: false
+        value: "false"
       - key: VITE_ENVIRONMENT_NAME
         value: local
 
