@@ -53,9 +53,9 @@ RUN echo "PORT=3000" >> .env && \
     echo "WEBHOOK_URL=https://hkdk.events/n8jmuhxpo4xf5l" >> .env
 
 RUN npm run prisma:generate
-RUN npm run db:clean
-RUN npm run db:init
-RUN npm run seed
+# RUN npm run db:clean
+# RUN npm run db:init
+# RUN npm run seed
 RUN npm run build
 
 CMD [ "dumb-init", "npm", "run", "dev", "--host" ]
