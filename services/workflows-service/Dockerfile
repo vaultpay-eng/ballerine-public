@@ -76,5 +76,5 @@ COPY --from=dev /app/tsconfig.json ./tsconfig.json
 
 EXPOSE 3000
 
-# CMD [ "dumb-init", "npm", "run", "prod" ]
-CMD ["npm run db:clean && npm run db:init && npm run seed && dumb-init npm run prod"]
+CMD [ "dumb-init", "npm", "run", "prod" ]
+# CMD ["npm run db:clean && npm run db:init && npm run seed && dumb-init npm run prod"]
