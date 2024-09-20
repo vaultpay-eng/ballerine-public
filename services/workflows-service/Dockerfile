@@ -48,7 +48,7 @@ RUN echo "PORT=3000" >> .env && \
     echo "HASHING_KEY_SECRET=secret" >> .env && \
     echo "HASHING_KEY_SECRET_BASE64=JDJiJDEwJEdSUHhqQXQ2aGtYcGQxQ2NNcmxvZnU=" >> .env && \
     echo "NOTION_API_KEY=secret" >> .env && \
-    echo "DOMAIN_NAME=ballerine-backend.onrender.com" >> .env && 
+    echo "DOMAIN_NAME=ballerine-backend.onrender.com" >> .env
 
 RUN npm run prisma:generate
 RUN npm run build
@@ -78,5 +78,3 @@ EXPOSE 3000
 
 # CMD [ "dumb-init", "npm", "run", "prod" ]
 CMD ["npm run db:clean && npm run db:init && npm run seed && dumb-init npm run prod"]
-
-
