@@ -6,6 +6,7 @@ import { hash } from 'bcrypt';
 import { hashKey } from '../src/customer/api-key/utils';
 import { env } from '../src/env';
 import type { InputJsonValue } from '../src/types';
+import { seedTransactionsAlerts } from './alerts/generate-alerts';
 import { generateTransactions } from './alerts/generate-transactions';
 import { customSeed } from './custom-seed';
 import {
@@ -185,6 +186,132 @@ async function seed() {
       projectId: project1.id,
     },
   });
+
+  const createMockBusinessContextData = async (businessId: string, countOfBusiness: number) => {
+    const correlationId = faker.datatype.uuid();
+    const imageUri1 = generateAvatarImageUri(
+      `set_${countOfBusiness}_doc_front.png`,
+      countOfBusiness,
+    );
+    const imageUri2 = generateAvatarImageUri(
+      `set_${countOfBusiness}_doc_face.png`,
+      countOfBusiness,
+    );
+    const imageUri3 = generateAvatarImageUri(
+      `set_${countOfBusiness}_selfie.png`,
+      countOfBusiness,
+      true,
+    );
+
+    return {
+      entity: {
+        type: 'business',
+        data: {
+          companyName: faker.company.name(),
+          registrationNumber: faker.finance.account(9),
+          legalForm: faker.company.bs(),
+          countryOfIncorporation: faker.address.country(),
+          // @ts-expect-error - business type expects a date and not a string.
+          dateOfIncorporation: faker.date.past(20).toISOString(),
+          address: faker.address.streetAddress(),
+          phoneNumber: faker.phone.number(),
+          email: faker.internet.email(),
+          website: faker.internet.url(),
+          industry: faker.company.catchPhrase(),
+          taxIdentificationNumber: faker.finance.account(12),
+          vatNumber: faker.finance.account(9),
+          numberOfEmployees: faker.datatype.number(1000),
+          businessPurpose: faker.company.catchPhraseDescriptor(),
+          approvalState: 'NEW',
+          additionalInfo: { customParam: 'customValue' },
+        } satisfies Partial<Business>,
+        ballerineEntityId: businessId,
+        id: correlationId,
+      },
+      documents: [
+        {
+          id: faker.datatype.uuid(),
+          category: 'proof_of_employment',
+          type: 'payslip',
+          issuer: {
+            type: 'government',
+            name: 'Government',
+            country: 'GH',
+            city: faker.address.city(),
+            additionalInfo: { customParam: 'customValue' },
+          },
+          issuingVersion: 1,
+
+          version: 1,
+          pages: [
+            {
+              provider: 'http',
+              uri: imageUri1,
+              type: 'jpg',
+              data: '',
+              ballerineFileId: await persistImageFile(client, imageUri1, project1.id),
+              metadata: {
+                side: 'front',
+                pageNumber: '1',
+              },
+            },
+            {
+              provider: 'http',
+              uri: imageUri2,
+              type: 'jpg',
+              data: '',
+              ballerineFileId: await persistImageFile(client, imageUri2, project1.id),
+              metadata: {
+                side: 'back',
+                pageNumber: '1',
+              },
+            },
+          ],
+          properties: {
+            nationalIdNumber: generateUserNationalId(),
+            docNumber: faker.random.alphaNumeric(9),
+            employeeName: faker.name.fullName(),
+            position: faker.name.jobTitle(),
+            salaryAmount: faker.finance.amount(1000, 10000),
+            issuingDate: faker.date.past(10).toISOString().split('T')[0],
+          },
+        },
+        {
+          id: faker.datatype.uuid(),
+          category: 'proof_of_address',
+          type: 'mortgage_statement',
+          issuer: {
+            type: 'government',
+            name: 'Government',
+            country: 'GH',
+            city: faker.address.city(),
+            additionalInfo: { customParam: 'customValue' },
+          },
+          issuingVersion: 1,
+
+          version: 1,
+          pages: [
+            {
+              provider: 'http',
+              uri: imageUri3,
+              type: 'image/png',
+              ballerineFileId: await persistImageFile(client, imageUri3, project1.id),
+              data: '',
+              metadata: {},
+            },
+          ],
+          properties: {
+            nationalIdNumber: generateUserNationalId(),
+            docNumber: faker.random.alphaNumeric(9),
+            employeeName: faker.name.fullName(),
+            position: faker.name.jobTitle(),
+            salaryAmount: faker.finance.amount(1000, 10000),
+            issuingDate: faker.date.past(10).toISOString().split('T')[0],
+          },
+        },
+      ],
+    };
+  };
 
   async function createMockEndUserContextData(endUserId: string, countOfIndividual: number) {
     const correlationId = faker.datatype.uuid();
@@ -810,6 +937,59 @@ async function seed() {
     },
     project1.id,
   );
+
+  await client.$transaction(async tx => {
+    businessRiskIds.map(async (id, index) => {
+      const riskWf = async () => ({
+        runtimeId: `test-workflow-risk-id-${index}`,
+        workflowDefinitionId: riskScoreMachineKybId,
+        workflowDefinitionVersion: 1,
+        context: await createMockBusinessContextData(id, index + 1),
+        createdAt: faker.date.recent(2),
+        state: DEFAULT_INITIAL_STATE,
+        projectId: project1.id,
+      });
+
+      return client.business.create({
+        data: generateBusiness({
+          id,
+          workflow: await riskWf(),
+          projectId: project1.id,
+        }),
+      });
+    });
+
+    businessIds.map(async id => {
+      const exampleWf = {
+        workflowDefinitionId: onboardingMachineKybId,
+        workflowDefinitionVersion: manualMachineVersion,
+        // Would not display data in the backoffice UI
+        context: {},
+        state: DEFAULT_INITIAL_STATE,
+        createdAt: faker.date.recent(2),
+      };
+
+      return client.business.create({
+        data: generateBusiness({
+          id,
+          workflow: exampleWf,
+          projectId: project1.id,
+        }),
+      });
+    });
+  });
+
+  await seedTransactionsAlerts(client, {
+    project: project1,
+    businessIds: businessRiskIds,
+    counterpartyIds: ids1
+      .map(
+        ({ counterpartyOriginatorId, counterpartyBeneficiaryId }) =>
+          counterpartyOriginatorId || counterpartyBeneficiaryId,
+      )
+      .filter(Boolean) as string[],
+    agentUserIds: agentUsers.map(({ id }) => id),
+  });
 
   await client.$transaction(async () =>
     endUserIds.map(async (id, index) =>
