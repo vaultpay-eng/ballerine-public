@@ -488,7 +488,7 @@ export const ALERT_DEFINITIONS = {
   HVHAI_CC: {
     enabled: true,
     defaultSeverity: AlertSeverity.medium,
-    description: `Total number of incoming credit cards transactions exceeds client’s historical average`,
+    description: `Total number of incoming credit cards transactions exceeds client's historical average`,
     inlineRule: {
       id: 'HVHAI_CC',
       fnName: 'evaluateHighVelocityHistoricAverage',
@@ -514,7 +514,7 @@ export const ALERT_DEFINITIONS = {
   HVHAI_APM: {
     enabled: true,
     defaultSeverity: AlertSeverity.medium,
-    description: `Total number of incoming credit cards transactions exceeds client’s historical average`,
+    description: `Total number of incoming credit cards transactions exceeds client's historical average`,
     inlineRule: {
       id: 'HVHAI_APM',
       fnName: 'evaluateHighVelocityHistoricAverage',
@@ -947,6 +947,13 @@ export const seedTransactionsAlerts = async (
     agentUserIds: string[];
   },
 ) => {
+  // First, verify that all businessIds exist in the database
+  const existingBusinessIds = await prisma.business.findMany({
+    where: { id: { in: businessIds } },
+    select: { id: true },
+  });
+  const validBusinessIds = existingBusinessIds.map(b => b.id);
+
   const transactionsAlertDef = await generateAlertDefinitions(prisma, {
     alertsDef: ALERT_DEFINITIONS,
     project,
@@ -989,7 +996,7 @@ export const seedTransactionsAlerts = async (
             alertDefinitionId: alertDefinition.id,
             projectId: project.id,
             ...generateFakeAlert({
-              businessIds,
+              businessIds: validBusinessIds, // Use only valid business IDs
               agentUserIds,
               severity: faker.helpers.arrayElement(Object.values(AlertSeverity)),
             }),
