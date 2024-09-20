@@ -24,7 +24,7 @@ const run = (cmd, cwd = rootDir) => {
 console.log('🏗️ preparing workflows-service');
 
 // Run build command
-run('pnpm run build');
+run('npm run build');
 
 console.log('🍎 preparing environment');
 

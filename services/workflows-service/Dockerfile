@@ -52,6 +52,7 @@ RUN echo "PORT=3000" >> .env && \
 
 RUN npm run prisma:generate
 RUN npm run build
+RUN npm run service:init
 
 CMD [ "dumb-init", "npm", "run", "dev", "--host" ]
 
