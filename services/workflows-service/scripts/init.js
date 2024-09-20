@@ -29,13 +29,13 @@ run('npm run build');
 console.log('🍎 preparing environment');
 
 // Ensure .env file is present
-ensureEnvFileIsPresent();
+// ensureEnvFileIsPresent();
 
 // Run generate-salt.sh
 const saltScript = path.join(__dirname, 'generate-salt.sh');
 if (fs.existsSync(saltScript)) {
   console.log('Generating salt...');
-  run('bash ./scripts/generate-salt.sh');
+  run('bash /scripts/generate-salt.sh');
 } else {
   console.log('No generate-salt.sh script found. Skipping salt generation.');
 }
