@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker';
 import { Business, Customer, EndUser, Prisma, PrismaClient } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { customSeed } from './custom-seed';
+import { hashKey } from '../src/customer/api-key/utils';
 
 import { generateUserNationalId } from './generate-user-national-id';
 
@@ -394,6 +395,11 @@ async function createCustomer(
       id: `customer-${id}`,
       name: `fintechdevcon`,
       displayName: `Fintech Devcon`,
+      apiKeys: {
+        create: {
+          hashedKey: await hashKey(apiKey),
+        },
+      },
       authenticationConfiguration: {
         apiType: 'API_KEY',
         authValue: apiKey,

@@ -50,7 +50,7 @@ RUN echo "PORT=3000" >> .env && \
     echo "NOTION_API_KEY=secret" >> .env && \
     echo "DOMAIN_NAME=ballerine-backend.onrender.com" >> .env
 
-RUN npm run service:init
+# RUN npm run service:init
 RUN npm run prisma:generate
 RUN npm run db:clean
 RUN npm run db:init
