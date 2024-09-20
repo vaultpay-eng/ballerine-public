@@ -267,6 +267,7 @@ export const fetchWorkflowEventDecision = async ({
   body: {
     name: string;
     reason?: string;
+    user?: any;
   };
 }) => {
   const [workflow, error] = await apiClient({

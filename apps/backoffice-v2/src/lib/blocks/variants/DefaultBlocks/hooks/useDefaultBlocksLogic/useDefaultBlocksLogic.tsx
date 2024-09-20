@@ -37,7 +37,7 @@ import { useCaseDecision } from '@/pages/Entity/components/Case/hooks/useCaseDec
 import { useCaseState } from '@/pages/Entity/components/Case/hooks/useCaseState/useCaseState';
 import { selectDirectorsDocuments } from '@/pages/Entity/selectors/selectDirectorsDocuments';
 import { Send } from 'lucide-react';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { toast } from 'sonner';
 import { useCurrentCaseQuery } from '@/pages/Entity/hooks/useCurrentCaseQuery/useCurrentCaseQuery';
 import { useWebsiteMonitoringReportBlock } from '@/lib/blocks/variants/WebsiteMonitoringBlocks/hooks/useWebsiteMonitoringReportBlock/useWebsiteMonitoringReportBlock';
@@ -60,25 +60,7 @@ export const useDefaultBlocksLogic = () => {
   const { search } = useLocation();
   const { data: workflow, isLoading } = useCurrentCaseQuery();
   const { data: session } = useAuthenticatedUserQuery();
-  const [user, setUser] = useState(session?.user);
-
-  useEffect(() => {
-    if (!user) {
-      try {
-        const storedAuthData = window.sessionStorage.getItem('authData');
-        if (storedAuthData) {
-          const parsedAuthData = JSON.parse(storedAuthData);
-          if (parsedAuthData.user) {
-            setUser(parsedAuthData.user);
-          }
-        }
-      } catch (error) {
-        console.error('Failed to retrieve auth data from session storage:', error);
-      }
-    }
-  }, [user]);
-
-  const caseState = useCaseState(user ?? null, workflow);
+  const caseState = useCaseState(session?.user, workflow);
   const { noAction } = useCaseDecision();
   const isWorkflowLevelResolution =
     workflow?.workflowDefinition?.config?.workflowLevelResolution ??
