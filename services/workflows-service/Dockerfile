@@ -67,6 +67,7 @@ ENV SHORT_SHA=${SHORT_SHA}
 
 WORKDIR /app
 
+
 COPY --from=dev /usr/bin/dumb-init /usr/bin/dumb-init
 COPY --from=dev /app/node_modules/ ./node_modules
 COPY --from=dev /app/package.json ./package.json
@@ -76,6 +77,8 @@ COPY --from=dev /app/scripts ./scripts
 COPY --from=dev /app/src ./src
 COPY --from=dev /app/tsconfig.build.json ./tsconfig.build.json
 COPY --from=dev /app/tsconfig.json ./tsconfig.json
+
+COPY --from=dev /app/.env ./.env
 
 EXPOSE 3000
 
