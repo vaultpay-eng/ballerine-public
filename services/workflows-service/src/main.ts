@@ -36,9 +36,6 @@ const devOrigins = [
   /^http:\/\/localhost:\d+$/,
   'api-dev.eu.ballerine.io',
   'api-dev.ballerine.io',
-  'ballerine-dashboard.onrender.com',
-  'vaultpay-back-office.onrender.com',
-  'ballerine-kyb.onrender.com',
 ];
 
 const corsOrigins = [
@@ -48,6 +45,9 @@ const corsOrigins = [
   ...(env.KYC_EXAMPLE_CORS_ORIGIN ?? []),
   'api-sb.eu.ballerine.app',
   'api-sb.ballerine.app',
+  'ballerine-dashboard.onrender.com',
+  'vaultpay-back-office.onrender.com',
+  'ballerine-kyb.onrender.com',
   /\.ballerine\.app$/,
   ...(env.ENVIRONMENT_NAME !== 'production' ? devOrigins : []),
 ];
@@ -85,6 +85,7 @@ const main = async () => {
           defaultSrc: ["'self'"],
           connectSrc: [
             "'self'",
+            'https://ballerine-backend.onrender.com',
             'https://api-dev.ballerine.io',
             'https://api-sb.ballerine.app',
             'https://api-sb.eu.ballerine.app',
