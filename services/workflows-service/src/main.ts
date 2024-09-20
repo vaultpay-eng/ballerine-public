@@ -38,6 +38,7 @@ const devOrigins = [
   'api-dev.ballerine.io',
   'ballerine-dashboard.onrender.com',
   'vaultpay-back-office.onrender.com',
+  'ballerine-kyb.onrender.com',
 ];
 
 const corsOrigins = [
