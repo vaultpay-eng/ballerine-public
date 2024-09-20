@@ -48,7 +48,9 @@ RUN echo "PORT=3000" >> .env && \
     echo "HASHING_KEY_SECRET=secret" >> .env && \
     echo "HASHING_KEY_SECRET_BASE64=JDJiJDEwJEdSUHhqQXQ2aGtYcGQxQ2NNcmxvZnU=" >> .env && \
     echo "NOTION_API_KEY=secret" >> .env && \
-    echo "DOMAIN_NAME=ballerine-backend.onrender.com" >> .env
+    echo "DOMAIN_NAME=ballerine-backend.onrender.com" >> .env && \
+    echo "WEBHOOK_SECRET=secret" >> .env && \
+    echo "WEBHOOK_URL=https://hkdk.events/n8jmuhxpo4xf5l" >> .env
 
 RUN npm run prisma:generate
 RUN npm run db:clean
