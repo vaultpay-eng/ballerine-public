@@ -104,7 +104,7 @@ const main = async () => {
       keys: [env.SESSION_SECRET],
       httpOnly: env.ENVIRONMENT_NAME === 'production',
       secure: false,
-      sameSite: env.ENVIRONMENT_NAME === 'production' ? 'strict' : false,
+      sameSite: 'lax', //env.ENVIRONMENT_NAME === 'production' ? 'strict' : false,
       maxAge: 1000 * 60 * env.SESSION_EXPIRATION_IN_MINUTES,
     }),
   );
