@@ -50,7 +50,6 @@ RUN echo "PORT=3000" >> .env && \
     echo "NOTION_API_KEY=secret" >> .env && \
     echo "DOMAIN_NAME=ballerine-backend.onrender.com" >> .env
 
-# RUN npm run service:init
 RUN npm run prisma:generate
 RUN npm run db:clean
 RUN npm run db:init
@@ -81,4 +80,3 @@ COPY --from=dev /app/tsconfig.json ./tsconfig.json
 EXPOSE 3000
 
 CMD [ "dumb-init", "npm", "run", "prod" ]
-# CMD ["npm run db:clean && npm run db:init && npm run seed && dumb-init npm run prod"]
