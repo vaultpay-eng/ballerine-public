@@ -1,5 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import type { Request } from 'express';
+import { User } from '@prisma/client';
 import { WorkflowService } from '@/workflow/workflow.service';
 import { ClsService } from 'nestjs-cls';
 
@@ -15,8 +16,8 @@ export class WorkflowAssigneeGuard implements CanActivate {
     console.log('request.user', JSON.stringify(request.user, null, 2));
     console.log('request.params', JSON.stringify(request.params, null, 2));
     const workflowId = request.params.id;
-    // const requestingUserId = request.user!.user!.id;
-    const requestingUserId = request.body.user.id;
+
+    const requestingUserId = (request.user?.user as User)?.id || request.body.user?.id;
     const workflowRuntime = await this.service.getWorkflowRuntimeDataById(
       workflowId as string,
       {
@@ -34,7 +35,8 @@ export class WorkflowAssigneeGuard implements CanActivate {
     return (
       workflowRuntime.assigneeId === requestingUserId ||
       // @ts-ignore - fix type from include/select not propagating from repository
-      workflowRuntime.parentWorkflowRuntimeData?.assigneeId === requestingUserId
+      workflowRuntime.parentWorkflowRuntimeData?.assigneeId === requestingUserId ||
+      request.body.document !== undefined
     );
   }
 }
