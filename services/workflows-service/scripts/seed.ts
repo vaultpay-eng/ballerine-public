@@ -74,7 +74,7 @@ async function createProject(client: PrismaClient, customer: Customer): Promise<
 }
 
 async function createAdminUser(client: PrismaClient, project: Project): Promise<User> {
-  const existingUser = await client.user.findUnique({ where: { email: 'admin@vaultpay.io' } });
+  const existingUser = await client.user.findUnique({ where: { email: 'support@vaultpay.io' } });
 
   if (existingUser) {
     console.info('Admin user already exists, skipping creation');
