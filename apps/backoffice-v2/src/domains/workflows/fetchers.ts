@@ -185,19 +185,7 @@ export const updateWorkflowDocumentById = async ({
       contextUpdateMethod ? `?contextUpdateMethod=${contextUpdateMethod}` : ''
     }`,
     method: Method.PATCH,
-    body: {
-      ...body,
-      user: (() => {
-        const storedAuthData = window.sessionStorage.getItem('authData');
-        if (storedAuthData) {
-          const parsedAuthData = JSON.parse(storedAuthData);
-          if (parsedAuthData.user) {
-            return parsedAuthData.user;
-          }
-        }
-        return undefined;
-      })(),
-    },
+    body,
     schema: z.any(),
   });
 
