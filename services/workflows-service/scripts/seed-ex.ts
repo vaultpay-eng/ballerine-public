@@ -422,35 +422,6 @@ async function createProject(client: PrismaClient, customer: Customer, id: strin
   });
 }
 
-const persistImageFile = async (client: PrismaClient, uri: string) => {
-  const file = await client.file.create({
-    data: {
-      fileNameOnDisk: uri,
-      uri: uri,
-      project: {
-        connect: {
-          id: 'project-1', // Assuming project1 is available in this scope
-        },
-      },
-      userId: 'user-1', // Assuming user1 is available in this scope
-    },
-  });
-
-  return file.id;
-};
-
-function generateAvatarImageUri(imageTemplate: string, countOfBusiness: number, pdf = false) {
-  if (pdf) {
-    return `https://backoffice-demo.ballerine.app/images/mock-documents/set_1_doc_pdf.pdf`;
-  }
-
-  if (countOfBusiness < 4) {
-    return `https://backoffice-demo.ballerine.app/images/mock-documents/${imageTemplate}`;
-  }
-
-  return faker.image.people(1000, 2000, true);
-}
-
 async function seed(bcryptSalt: number | string) {
   console.info('Seeding database....');
   const client = new PrismaClient();
