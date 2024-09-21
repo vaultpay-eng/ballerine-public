@@ -22,7 +22,7 @@ echo "VITE_SENTRY_AUTH_TOKEN=" >> .env && \
 echo "VITE_SENTRY_DSN=" >> .env && \
 echo "VITE_IMAGE_LOGO_URL=https://raw.githubusercontent.com/vault-pay/logo/main/vaultpay-logo-1200.svg" >> .env
 
-RUN mv /app/.env.example /app/.env
+# RUN mv /app/.env.example /app/.env
 RUN npm run build
 
 ENV PATH="$PATH:./node_modules/.bin"
