@@ -50,6 +50,7 @@ const corsOrigins = [
   'ballerine-kyb.onrender.com',
   /^(https?:\/\/)?([\w-]+\.)*vaultpay-back-office\.onrender\.com$/,
   /\.ballerine\.app$/,
+  /^(https?:\/\/)?(www\.)?(ballerine|backoffice)\.vaultpay\.io$/,
   ...(env.ENVIRONMENT_NAME !== 'production' ? devOrigins : []),
 ];
 
