@@ -12,14 +12,28 @@ import { handlePromise } from '../utils/handle-promise/handle-promise';
  * @param schema - A zod schema to validate the response against.
  * @param rest - Allows overriding any of the defaults set by the API client.
  */
-export const apiClient: IApiClient = async ({ endpoint, method, options, schema, ...rest }) =>
-  handlePromise(
+export const apiClient: IApiClient = async ({ endpoint, method, options, schema, ...rest }) => {
+  // Retrieve user from session storage
+  let user;
+  const storedAuthData = window.sessionStorage.getItem('authData');
+  if (storedAuthData) {
+    const parsedAuthData = JSON.parse(storedAuthData);
+    if (parsedAuthData.user) {
+      user = parsedAuthData.user;
+    }
+  }
+
+  return handlePromise(
     fetcher({
       url: `${env.VITE_API_URL}/${endpoint}`,
       method,
       options: {
         ...options,
         credentials: 'include',
+        body: {
+          ...options?.body,
+          user, // Add user to the body
+        },
       },
       headers: {
         'Content-Type': 'application/json',
@@ -30,3 +44,4 @@ export const apiClient: IApiClient = async ({ endpoint, method, options, schema,
       ...rest,
     }),
   );
+};

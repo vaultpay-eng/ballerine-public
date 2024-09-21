@@ -20,27 +20,16 @@ export const useApproveTaskByIdMutation = (workflowId: string) => {
       documentId: string;
       contextUpdateMethod?: 'base' | 'director';
       comment?: string;
-    }) => {
-      let user;
-      const storedAuthData = window.sessionStorage.getItem('authData');
-      if (storedAuthData) {
-        const parsedAuthData = JSON.parse(storedAuthData);
-        if (parsedAuthData.user) {
-          user = parsedAuthData.user;
-        }
-      }
-
-      return updateWorkflowDecision({
+    }) =>
+      updateWorkflowDecision({
         workflowId,
         documentId,
         body: {
           decision: Action.APPROVE,
           comment,
-          user, // Add user to the body
         },
         contextUpdateMethod,
-      });
-    },
+      }),
     onMutate: async ({ documentId }) => {
       await queryClient.cancelQueries({
         queryKey: workflowById.queryKey,
