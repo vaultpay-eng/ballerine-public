@@ -45,7 +45,14 @@ const corsOrigins = [
   ...(env.KYC_EXAMPLE_CORS_ORIGIN ?? []),
   'api-sb.eu.ballerine.app',
   'api-sb.ballerine.app',
+  'ballerine-dashboard.onrender.com',
+  'vaultpay-back-office.onrender.com',
+  'ballerine-kyb.onrender.com',
+  /^(https?:\/\/)?([\w-]+\.)*vaultpay-back-office\.onrender\.com$/,
+  /^(https?:\/\/)?([\w-]+\.)*ballerine-dashboard\.onrender\.com$/,
+  /^(https?:\/\/)?([\w-]+\.)*ballerine-kyb\.onrender\.com$/,
   /\.ballerine\.app$/,
+  /^(https?:\/\/)?(www\.)?(ballerine|backoffice)\.vaultpay\.io(\/.*)?$/,
   ...(env.ENVIRONMENT_NAME !== 'production' ? devOrigins : []),
 ];
 
@@ -82,6 +89,7 @@ const main = async () => {
           defaultSrc: ["'self'"],
           connectSrc: [
             "'self'",
+            'https://ballerine-backend.onrender.com',
             'https://api-dev.ballerine.io',
             'https://api-sb.ballerine.app',
             'https://api-sb.eu.ballerine.app',
@@ -98,9 +106,9 @@ const main = async () => {
     cookieSession({
       name: 'session',
       keys: [env.SESSION_SECRET],
-      httpOnly: env.ENVIRONMENT_NAME === 'production',
-      secure: false,
-      sameSite: env.ENVIRONMENT_NAME === 'production' ? 'strict' : false,
+      httpOnly: false, //env.ENVIRONMENT_NAME === 'production',
+      secure: true,
+      sameSite: 'none', //env.ENVIRONMENT_NAME === 'production' ? 'strict' : false,
       maxAge: 1000 * 60 * env.SESSION_EXPIRATION_IN_MINUTES,
     }),
   );

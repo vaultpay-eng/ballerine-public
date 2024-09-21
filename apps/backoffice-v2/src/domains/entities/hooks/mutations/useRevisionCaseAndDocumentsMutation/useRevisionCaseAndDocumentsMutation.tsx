@@ -15,6 +15,16 @@ export const useRevisionCaseAndDocumentsMutation = ({ workflowId }: { workflowId
         body: {
           name: Action.REVISION,
           reason: revisionReason,
+          user: (() => {
+            const storedAuthData = window.sessionStorage.getItem('authData');
+            if (storedAuthData) {
+              const parsedAuthData = JSON.parse(storedAuthData);
+              if (parsedAuthData.user) {
+                return parsedAuthData.user;
+              }
+            }
+            return undefined;
+          })(),
         },
       }),
     onSuccess: () => {

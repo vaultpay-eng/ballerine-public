@@ -4,6 +4,7 @@
   "version": "0.7.46",
   "description": "workflow-service",
   "scripts": {
+    "service:init": "node ./scripts/init.js",
     "spellcheck": "cspell \"*\"",
     "setup": "npm run docker:db:down && npm run docker:db && wait-on tcp:5432 && npm run db:reset && npm run seed",
     "format": "prettier --write . '!**/*.{md,hbs}'",
@@ -21,6 +22,7 @@
     "test:integration": "jest --testRegex '.*\\.intg\\.test\\.ts$'",
     "test:e2e": "jest --testRegex '.*\\.e2e\\.test\\.ts$'",
     "test:watch": "jest --verbose --watch",
+    "seed-ex": "tsx scripts/seed-ex.ts",
     "seed": "tsx scripts/seed.ts",
     "db:migrate-dev": "prisma migrate dev",
     "db:migrate-up": "prisma migrate deploy",

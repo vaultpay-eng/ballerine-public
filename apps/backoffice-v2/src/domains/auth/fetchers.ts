@@ -48,6 +48,11 @@ export const fetchSignIn = async ({ callbackUrl, body }: ISignInProps) => {
     },
   });
 
+  console.log('1. fetchSignIn auth/login Session Information:', JSON.stringify(session, null, 2));
+  console.log('2. fetchSignIn auth/login Error Information:', JSON.stringify(error, null, 2));
+  console.log('3. fetchSignIn auth/login Body Information:', JSON.stringify(body, null, 2));
+  console.log('4. fetchSignIn auth/login Callback URL:', callbackUrl);
+
   return handleZodError(error, session);
 };
 
@@ -60,10 +65,27 @@ export const fetchAuthenticatedUser = async () => {
     }),
   });
 
+  if (!session?.user) {
+    try {
+      const storedAuthData = window.sessionStorage.getItem('authData');
+      if (storedAuthData) {
+        const parsedAuthData = JSON.parse(storedAuthData);
+        if (parsedAuthData.user) {
+          if (session) {
+            session.user = parsedAuthData.user;
+            return session;
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Failed to retrieve auth data from local storage:', error);
+    }
+  }
+
   try {
     posthog.identify(session?.user?.id, {
       email: session?.user?.email,
-      name: session?.user?.fullName,
+      name: session?.user?.lastName,
     });
   } catch (error) {
     console.error('Error identifying user in PostHog:', error);

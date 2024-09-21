@@ -17,16 +17,27 @@ export const useRemoveDecisionTaskByIdMutation = (workflowId: string) => {
     }: {
       documentId: string;
       contextUpdateMethod: 'base' | 'director';
-    }) =>
-      updateWorkflowDecision({
+    }) => {
+      let user;
+      const storedAuthData = window.sessionStorage.getItem('authData');
+      if (storedAuthData) {
+        const parsedAuthData = JSON.parse(storedAuthData);
+        if (parsedAuthData.user) {
+          user = parsedAuthData.user;
+        }
+      }
+
+      return updateWorkflowDecision({
         workflowId,
         documentId,
         body: {
           decision: null,
           reason: null,
+          user, // Add user to the body
         },
         contextUpdateMethod,
-      }),
+      });
+    },
     onMutate: async ({ documentId }) => {
       await queryClient.cancelQueries({
         queryKey: workflowById.queryKey,

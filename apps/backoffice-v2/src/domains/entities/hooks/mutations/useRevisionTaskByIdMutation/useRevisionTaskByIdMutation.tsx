@@ -21,16 +21,27 @@ export const useRevisionTaskByIdMutation = () => {
       documentId: string;
       reason?: string;
       contextUpdateMethod?: 'base' | 'director';
-    }) =>
-      updateWorkflowDecision({
+    }) => {
+      let user;
+      const storedAuthData = window.sessionStorage.getItem('authData');
+      if (storedAuthData) {
+        const parsedAuthData = JSON.parse(storedAuthData);
+        if (parsedAuthData.user) {
+          user = parsedAuthData.user;
+        }
+      }
+
+      return updateWorkflowDecision({
         workflowId,
         documentId,
         contextUpdateMethod,
         body: {
           decision: Action.REVISION,
           reason,
+          user, // Add user to the body
         },
-      }),
+      });
+    },
     onMutate: async ({ workflowId, documentId, reason }) => {
       const workflowById = workflowsQueryKeys.byId({ workflowId, filterId });
       await queryClient.cancelQueries({
