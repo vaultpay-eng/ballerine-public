@@ -14,9 +14,9 @@ RUN rm -f .env
 RUN echo "PORT=80" >> .env && \
     echo "WORKFLOW_DASHBOARD_PORT=5200" >> .env && \
     echo "VITE_API_URL=https://ballerine-backend.onrender.com/api/v1/" >> .env && \
-    echo "MODE=development" >> .env && \
+    echo "MODE=production" >> .env && \
     echo "VITE_IMAGE_LOGO_URL=https://raw.githubusercontent.com/vault-pay/logo/main/vaultpay-logo-1200.svg" >> .env && \
-    echo "VITE_ENVIRONMENT_NAME=local" >> .env && \
+    echo "VITE_ENVIRONMENT_NAME=production" >> .env && \
     echo "VITE_API_KEY=secret" >> .env
 
 RUN npm run build

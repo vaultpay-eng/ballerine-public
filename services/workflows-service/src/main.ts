@@ -49,6 +49,7 @@ const corsOrigins = [
   'vaultpay-back-office.onrender.com',
   'ballerine-kyb.onrender.com',
   /^(https?:\/\/)?([\w-]+\.)*vaultpay-back-office\.onrender\.com$/,
+  /^(https?:\/\/)?([\w-]+\.)*ballerine-dashboard\.onrender\.com$/,
   /\.ballerine\.app$/,
   /^(https?:\/\/)?(www\.)?(ballerine|backoffice)\.vaultpay\.io(\/.*)?$/,
   ...(env.ENVIRONMENT_NAME !== 'production' ? devOrigins : []),
