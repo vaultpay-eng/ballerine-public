@@ -8,11 +8,4 @@ export class DocumentUpdateInput {
   })
   @IsObject()
   document!: any;
-
-  @ApiProperty({
-    required: false, // Marking as optional
-    type: Object,
-  })
-  @IsObject()
-  user?: any; // Optional user property
 }
