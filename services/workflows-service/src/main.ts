@@ -103,9 +103,9 @@ const main = async () => {
     cookieSession({
       name: 'session',
       keys: [env.SESSION_SECRET],
-      httpOnly: env.ENVIRONMENT_NAME === 'production',
-      secure: false,
-      sameSite: 'lax', //env.ENVIRONMENT_NAME === 'production' ? 'strict' : false,
+      httpOnly: false, //env.ENVIRONMENT_NAME === 'production',
+      secure: true,
+      sameSite: 'none', //env.ENVIRONMENT_NAME === 'production' ? 'strict' : false,
       maxAge: 1000 * 60 * env.SESSION_EXPIRATION_IN_MINUTES,
     }),
   );

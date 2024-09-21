@@ -31,7 +31,7 @@ RUN echo "PORT=3000" >> .env && \
     echo "KYC_EXAMPLE_CORS_ORIGIN=https://ballerine-kyb.onrender.com" >> .env && \
     echo "APP_API_URL=https://alon.ballerine.dev/api" >> .env && \
     echo "BCRYPT_SALT=10" >> .env && \
-    echo "SESSION_EXPIRATION_IN_MINUTES=60" >> .env && \
+    echo "SESSION_EXPIRATION_IN_MINUTES=10" >> .env && \
     echo "DB_URL=postgres://admin:admin@ballerine-database:5432/postgres" >> .env && \
     echo "DB_USER=admin" >> .env && \
     echo "DB_PASSWORD=admin" >> .env && \
@@ -43,8 +43,8 @@ RUN echo "PORT=3000" >> .env && \
     echo "EMAIL_API_URL=https://api.sendgrid.com/v3/mail/send" >> .env && \
     echo "UNIFIED_API_URL=https://unified-api-test.eu.ballerine.app" >> .env && \
     echo "UNIFIED_API_TOKEN: ''" >> .env && \
-    echo "NODE_ENV=local" >> .env && \
-    echo "ENVIRONMENT_NAME=local" >> .env && \
+    echo "NODE_ENV=production" >> .env && \
+    echo "ENVIRONMENT_NAME=production" >> .env && \
     echo "HASHING_KEY_SECRET=secret" >> .env && \
     echo "HASHING_KEY_SECRET_BASE64=JDJiJDEwJEdSUHhqQXQ2aGtYcGQxQ2NNcmxvZnU=" >> .env && \
     echo "NOTION_API_KEY=secret" >> .env && \
