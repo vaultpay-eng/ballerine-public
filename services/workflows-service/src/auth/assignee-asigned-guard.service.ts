@@ -36,6 +36,7 @@ export class WorkflowAssigneeGuard implements CanActivate {
       workflowRuntime.assigneeId === requestingUserId ||
       // @ts-ignore - fix type from include/select not propagating from repository
       workflowRuntime.parentWorkflowRuntimeData?.assigneeId === requestingUserId ||
+      // TODO: remove this when we figure out how to pass the user in the body for document update
       request.body.document !== undefined
     );
   }
