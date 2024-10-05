@@ -34,6 +34,7 @@ export class StorageService {
       },
       select: {
         id: true,
+        uri: true,
         mimeType: true,
       },
     });
